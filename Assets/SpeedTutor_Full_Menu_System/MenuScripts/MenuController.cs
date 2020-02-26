@@ -35,6 +35,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject noSaveDialog;
     [SerializeField] private GameObject newGameDialog;
     [SerializeField] private GameObject loadGameDialog;
+    [SerializeField] private GameObject aboutDialog;
     #endregion
 
     #region Slider Linking
@@ -74,7 +75,7 @@ public class MenuController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (menuNumber == 2 || menuNumber == 7 || menuNumber == 8)
+            if (menuNumber == 2 || menuNumber == 7 || menuNumber == 8 || menuNumber == 9)
             {
                 GoBackToMainMenu();
                 ClickSound();
@@ -155,6 +156,12 @@ public class MenuController : MonoBehaviour
             menuDefaultCanvas.SetActive(false);
             newGameDialog.SetActive(true);
             menuNumber = 7;
+        }
+        if(buttonType == "About")
+		{
+            menuDefaultCanvas.SetActive(false);
+            aboutDialog.SetActive(true);
+            menuNumber = 9;
         }
     }
     #endregion
@@ -293,6 +300,13 @@ public class MenuController : MonoBehaviour
             GoBackToMainMenu();
         }
     }
+    public void ClickAboutDialog(string ButtonType)
+    {
+        if (ButtonType == "Back")
+        {
+            GoBackToMainMenu();
+        }
+    }
     #endregion
 
     #region Back to Menus
@@ -315,6 +329,7 @@ public class MenuController : MonoBehaviour
         menuDefaultCanvas.SetActive(true);
         newGameDialog.SetActive(false);
         loadGameDialog.SetActive(false);
+        aboutDialog.SetActive(false);
         noSaveDialog.SetActive(false);
         GeneralSettingsCanvas.SetActive(false);
         graphicsMenu.SetActive(false);
