@@ -98,6 +98,21 @@ public class Init_LoadPreferences : MonoBehaviour
                     invertYToggle.isOn = false;
                 }
             }
+            if (PlayerPrefs.HasKey("userName"))
+            {
+                PlayerPrefs.SetString("userName", "Juniper");
+                PlayerPrefs.SetInt("levels", 4);
+                Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+                string profName = PlayerPrefs.GetString("userName");
+                int profLevels = PlayerPrefs.GetInt("levels");
+                string toChange = "Welcome " + profName + "\nYou have completed: \n" + profLevels + " Levels!";
+                thisButton.GetComponentInChildren<Text>().text = toChange;
+            }
+            else
+            {
+                PlayerPrefs.SetString("userName", "Luna");
+                PlayerPrefs.SetInt("levels", 3);
+            }
         }
     }
 }

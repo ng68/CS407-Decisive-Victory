@@ -58,6 +58,16 @@ public class MenuController : MonoBehaviour
     private void Start()
     {
         menuNumber = 1;
+        if (PlayerPrefs.HasKey("username"))
+        {
+
+        }
+        else
+        {
+            PlayerPrefs.SetString("userName", "Luna");
+            PlayerPrefs.SetInt("levels", 3);
+        }
+
     }
     #endregion
 
