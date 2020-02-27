@@ -163,6 +163,21 @@ public class MenuController : MonoBehaviour
             aboutDialog.SetActive(true);
             menuNumber = 9;
         }
+        if(buttonType == "NewProfile")
+        {
+            Debug.Log("Attempting to switch profiles!");
+            if (GameObject.Find("Profile_Button").GetComponent<Button>())
+            {
+                Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+                string profName = "Luna";
+                string profLevels = "5";
+                string toChange = "Welcome " + profName+"\nYou have completed: \n"+profLevels+" Levels!";
+                thisButton.GetComponentInChildren<Text>().text = toChange;
+                Debug.Log("Button found!");
+                
+            }
+
+        }
     }
     #endregion
 
