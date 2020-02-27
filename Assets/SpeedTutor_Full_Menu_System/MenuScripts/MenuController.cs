@@ -58,6 +58,16 @@ public class MenuController : MonoBehaviour
     private void Start()
     {
         menuNumber = 1;
+        if (PlayerPrefs.HasKey("username"))
+        {
+
+        }
+        else
+        {
+            PlayerPrefs.SetString("userName", "Luna");
+            PlayerPrefs.SetInt("levels", 3);
+        }
+
     }
     #endregion
 
@@ -162,6 +172,21 @@ public class MenuController : MonoBehaviour
             menuDefaultCanvas.SetActive(false);
             aboutDialog.SetActive(true);
             menuNumber = 9;
+        }
+        if(buttonType == "NewProfile")
+        {
+            Debug.Log("Attempting to switch profiles!");
+            if (GameObject.Find("Profile_Button").GetComponent<Button>())
+            {
+                Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+                string profName = "Luna";
+                string profLevels = "5";
+                string toChange = "Welcome " + profName+"\nYou have completed: \n"+profLevels+" Levels!";
+                thisButton.GetComponentInChildren<Text>().text = toChange;
+                Debug.Log("Button found!");
+                
+            }
+
         }
     }
     #endregion
