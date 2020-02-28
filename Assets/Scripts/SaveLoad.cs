@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-
+using Newtonsoft.Json;
 public class SaveLoad : MonoBehaviour
 {
     public string file = "savefile.txt";
     public List<savedata> saves;
     public void Save()
     {
-        Debug.Log("Trying to write file.");
-        string json = JsonUtility.ToJson(saves);
-        WriteToFile(file, json);
+        Debug.LogWarning("Trying to write file.");
+        Debug.LogWarning(saves[0].charname);
+        var jsonString = JsonConvert.SerializeObject(saves);
+        Debug.LogWarning(jsonString);
+        WriteToFile(file, jsonString);
     }
     public void Load()
     {
         saves = new List<savedata>();
         string json = ReadFromFile(file);
-        JsonUtility.FromJsonOverwrite(json, saves);
+        saves = JsonConvert.DeserializeObject<List<savedata>>(json);
     }
 
     public void WriteToFile(string fileName, string json)
@@ -59,6 +61,8 @@ public class SaveLoad : MonoBehaviour
 [System.Serializable]
 public class savedata
 {
+    [SerializeField]
     public string charname;
+    [SerializeField]
     public int levelswon;
 }

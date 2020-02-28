@@ -101,13 +101,9 @@ public class Init_LoadPreferences : MonoBehaviour
             }
             if (PlayerPrefs.HasKey("userName"))
             {
-                Debug.Log(UnityEngine.Application.persistentDataPath);
-                saves = new SaveLoad();
-                savedata juniperTest = new savedata();
-                juniperTest.charname = "Juniper";
-                juniperTest.levelswon = 2;
-                saves.saves.Add(juniperTest);
-                saves.Save();
+                Debug.LogWarning("PlayerPrefs entry found.");
+                Debug.LogWarning(UnityEngine.Application.persistentDataPath);
+                saves.Load();
                 PlayerPrefs.SetString("userName", saves.saves[0].charname);
                 PlayerPrefs.SetInt("levels", saves.saves[0].levelswon);
                 Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
@@ -118,8 +114,8 @@ public class Init_LoadPreferences : MonoBehaviour
             }
             else
             {
-                Debug.Log(UnityEngine.Application.persistentDataPath);
-                saves = new SaveLoad();
+                Debug.LogWarning("PlayerPrefs entry found.");
+                Debug.LogWarning(UnityEngine.Application.persistentDataPath);
                 savedata juniperTest = new savedata();
                 juniperTest.charname = "Juniper";
                 juniperTest.levelswon = 2;
