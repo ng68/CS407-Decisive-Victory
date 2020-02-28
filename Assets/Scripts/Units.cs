@@ -80,7 +80,7 @@ public class Units : MonoBehaviour
         if (target == null)
         {
             animator.SetInteger("state", 0);
-            Debug.Log("Game over");
+            //Debug.Log("Game over");
             return;
         }
         targetScript = target.GetComponent<Units>();
