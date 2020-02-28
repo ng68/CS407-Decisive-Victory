@@ -44,8 +44,20 @@ public class GridHandler : MonoBehaviour
 		}
 	}
 
+	//accessor function for grid snapping
+
+	public void GridCheck(Vector3 pos, out Vector3 toSnap, out bool success){
+		//annoying but this is the way I have it implemented currently:
+		//bool successor;
+		//Vector3 snapper;
+		grid.DropUnitOnSquare(pos, out toSnap, out success);
+		//toSnap = snapper;
+		//success = successor;
+	}
+
+
 	//recursive functions to obtain the mouse's current position
-	//MOVE ELSEWHERE
+	//MOVE ELSEWHERE... maybe?
 
 	public static Vector3 GetMouseWorldPosition(){
 		Vector3 vec = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
