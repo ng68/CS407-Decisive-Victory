@@ -18,7 +18,6 @@ public class Units : MonoBehaviour
     private Units targetScript;
     private bool takeTime;
     private float speed = 100.0f;
-    private bool pause;
 
     public GameObject FindClosest()
     {
@@ -44,7 +43,7 @@ public class Units : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0.0f;
-        //while (Time.timeScale == 0.0f) ;
+        
         animator = GetComponent<Animator>();
         if (transform.gameObject.tag == "Enemy")
         {
@@ -62,16 +61,6 @@ public class Units : MonoBehaviour
         
     }
 
-    void PauseGame()
-    {
-        pause = true;
-    }
-
-    void ResumeGame()
-    {
-        pause = false;
-    }
-
     void LoseHealth(int loss)
     {
         health -= loss;
@@ -86,8 +75,6 @@ public class Units : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (pause)
-        //    return;
 
         target = FindClosest();
         if (target == null)

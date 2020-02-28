@@ -46,13 +46,14 @@ public class Pause : MonoBehaviour
     public void  MouseClick(string buttonType)
     {
         if (buttonType == "Pause")
-        {
+        {   
             Time.timeScale = 0.0f;
             pauseDialog.SetActive(true);
         }
         if (buttonType == "Back")
         {
-            Time.timeScale = 1.0f;
+            if (!startButton.activeSelf)
+                Time.timeScale = 1.0f;
             pauseDialog.SetActive(false);
         }
         if (buttonType == "Quit")
@@ -65,6 +66,7 @@ public class Pause : MonoBehaviour
         {
             Time.timeScale = 1.0f;
             startButton.SetActive(false);
+            
         }
     }
 
