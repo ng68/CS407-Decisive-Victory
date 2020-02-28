@@ -54,6 +54,7 @@ public class Pause : MonoBehaviour
         }
         if (buttonType == "Quit")
         {
+            Debug.Log(level);
             SceneManager.LoadScene(level);
         }
     }
