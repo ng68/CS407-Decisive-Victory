@@ -35,6 +35,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject noSaveDialog;
     [SerializeField] private GameObject newGameDialog;
     [SerializeField] private GameObject loadGameDialog;
+    [SerializeField] private GameObject aboutDialog;
     #endregion
 
     #region Slider Linking
@@ -57,6 +58,16 @@ public class MenuController : MonoBehaviour
     private void Start()
     {
         menuNumber = 1;
+        if (PlayerPrefs.HasKey("username"))
+        {
+
+        }
+        else
+        {
+            PlayerPrefs.SetString("userName", "Luna");
+            PlayerPrefs.SetInt("levels", 3);
+        }
+
     }
     #endregion
 
@@ -74,7 +85,7 @@ public class MenuController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (menuNumber == 2 || menuNumber == 7 || menuNumber == 8)
+            if (menuNumber == 2 || menuNumber == 7 || menuNumber == 8 || menuNumber == 9)
             {
                 GoBackToMainMenu();
                 ClickSound();
@@ -155,6 +166,27 @@ public class MenuController : MonoBehaviour
             menuDefaultCanvas.SetActive(false);
             newGameDialog.SetActive(true);
             menuNumber = 7;
+        }
+        if(buttonType == "About")
+		{
+            menuDefaultCanvas.SetActive(false);
+            aboutDialog.SetActive(true);
+            menuNumber = 9;
+        }
+        if(buttonType == "NewProfile")
+        {
+            Debug.Log("Attempting to switch profiles!");
+            if (GameObject.Find("Profile_Button").GetComponent<Button>())
+            {
+                Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+                string profName = "Luna";
+                string profLevels = "5";
+                string toChange = "Welcome " + profName+"\nYou have completed: \n"+profLevels+" Levels!";
+                thisButton.GetComponentInChildren<Text>().text = toChange;
+                Debug.Log("Button found!");
+                
+            }
+
         }
     }
     #endregion
@@ -293,6 +325,13 @@ public class MenuController : MonoBehaviour
             GoBackToMainMenu();
         }
     }
+    public void ClickAboutDialog(string ButtonType)
+    {
+        if (ButtonType == "Back")
+        {
+            GoBackToMainMenu();
+        }
+    }
     #endregion
 
     #region Back to Menus
@@ -315,6 +354,7 @@ public class MenuController : MonoBehaviour
         menuDefaultCanvas.SetActive(true);
         newGameDialog.SetActive(false);
         loadGameDialog.SetActive(false);
+        aboutDialog.SetActive(false);
         noSaveDialog.SetActive(false);
         GeneralSettingsCanvas.SetActive(false);
         graphicsMenu.SetActive(false);
