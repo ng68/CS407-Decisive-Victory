@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Units : MonoBehaviour
 {
     public int health;
     public int attack;
     public int range;
+    public Button pauseButton;
+    public Button startButton;
     //public float moveTime = 0.1f;
 
     private Animator animator;
@@ -15,6 +18,7 @@ public class Units : MonoBehaviour
     private Units targetScript;
     private bool takeTime;
     private float speed = 100.0f;
+    private bool pause;
 
     public GameObject FindClosest()
     {
@@ -39,6 +43,11 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //pause = true;
+        //pauseButton = GetComponent<Button>();
+        //pauseButton.onClick.AddListener(() => PauseGame());
+        //startButton = GetComponent<Button>();
+        //startButton.onClick.AddListener(() => ResumeGame());
         animator = GetComponent<Animator>();
         if (transform.gameObject.tag == "Enemy")
         {
@@ -56,6 +65,16 @@ public class Units : MonoBehaviour
         
     }
 
+    void PauseGame()
+    {
+        pause = true;
+    }
+
+    void ResumeGame()
+    {
+        pause = false;
+    }
+
     void LoseHealth(int loss)
     {
         health -= loss;
@@ -70,6 +89,8 @@ public class Units : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (pause)
+        //    return;
 
         target = FindClosest();
         if (target == null)
