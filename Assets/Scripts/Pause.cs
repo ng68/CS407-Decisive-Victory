@@ -21,6 +21,7 @@ public class Pause : MonoBehaviour
     [Space(10)]
     [Header("Pause Dialogs")]
     [SerializeField] private GameObject pauseDialog;
+    [SerializeField] private GameObject startButton;
     #endregion
 
     #region Initialisation - Button Selection & Menu Order
@@ -59,6 +60,11 @@ public class Pause : MonoBehaviour
             Time.timeScale = 1.0f;
             Debug.Log(level);
             SceneManager.LoadScene(level);
+        }
+        if (buttonType == "Start")
+        {
+            Time.timeScale = 1.0f;
+            startButton.SetActive(false);
         }
     }
 
