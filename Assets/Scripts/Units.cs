@@ -14,6 +14,7 @@ public class Units : MonoBehaviour
     private GameObject[] oppUnits;
     private Units targetScript;
     private bool takeTime;
+    private float speed = 100.0f;
 
     public GameObject FindClosest()
     {
@@ -91,13 +92,14 @@ public class Units : MonoBehaviour
 
     void Move()
     {
-        Debug.Log("Too Far");
+        float step = speed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
     }
 
     void AttemptAction ()
     {
         //If in range to attack
-        if (Mathf.Abs(target.transform.position.x - transform.position.x) <= range && Mathf.Abs(target.transform.position.y - transform.position.y) <= range)
+        if (Mathf.Abs(target.transform.position.x - transform.position.x) <= range*10 && Mathf.Abs(target.transform.position.y - transform.position.y) <= range*10)
         {
             Attack();
         }else
@@ -109,7 +111,7 @@ public class Units : MonoBehaviour
     IEnumerator ReduceTime()
     {
         takeTime = true;
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.05f);
         takeTime = false;
     }
 }

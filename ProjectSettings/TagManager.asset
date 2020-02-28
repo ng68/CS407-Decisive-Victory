@@ -16,8 +16,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Floor
+  - Units
   - 
   - 
   - 
@@ -43,4 +43,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 684209425
+    locked: 0
+  - name: Units
+    uniqueID: 3160798213
     locked: 0
