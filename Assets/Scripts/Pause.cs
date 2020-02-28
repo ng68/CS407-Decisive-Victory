@@ -46,14 +46,17 @@ public class Pause : MonoBehaviour
     {
         if (buttonType == "Pause")
         {
+            Time.timeScale = 0.0f;
             pauseDialog.SetActive(true);
         }
         if (buttonType == "Back")
         {
+            Time.timeScale = 1.0f;
             pauseDialog.SetActive(false);
         }
         if (buttonType == "Quit")
         {
+            Time.timeScale = 1.0f;
             Debug.Log(level);
             SceneManager.LoadScene(level);
         }

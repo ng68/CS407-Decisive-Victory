@@ -43,11 +43,8 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //pause = true;
-        //pauseButton = GetComponent<Button>();
-        //pauseButton.onClick.AddListener(() => PauseGame());
-        //startButton = GetComponent<Button>();
-        //startButton.onClick.AddListener(() => ResumeGame());
+        //Time.timeScale = 0.0f;
+        //while (Time.timeScale == 0.0f) ;
         animator = GetComponent<Animator>();
         if (transform.gameObject.tag == "Enemy")
         {
