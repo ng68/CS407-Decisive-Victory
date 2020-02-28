@@ -45,14 +45,8 @@ public class GridHandler : MonoBehaviour
 	}
 
 	//accessor function for grid snapping
-
 	public void GridCheck(Vector3 pos, out Vector3 toSnap, out bool success){
-		//annoying but this is the way I have it implemented currently:
-		//bool successor;
-		//Vector3 snapper;
 		grid.DropUnitOnSquare(pos, out toSnap, out success);
-		//toSnap = snapper;
-		//success = successor;
 	}
 
 
