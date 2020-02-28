@@ -9,11 +9,12 @@ public class Units : MonoBehaviour
     public int range;
     //public float moveTime = 0.1f;
 
-    //private Animator animator;
+    private Animator animator;
     private GameObject target;
     private GameObject[] oppUnits;
     private Units targetScript;
     private bool takeTime;
+    private float speed = 100.0f;
 
     public GameObject FindClosest()
     {
@@ -38,7 +39,7 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         if (transform.gameObject.tag == "Enemy")
         {
             //ally = false;
@@ -73,6 +74,7 @@ public class Units : MonoBehaviour
         target = FindClosest();
         if (target == null)
         {
+            animator.SetInteger("state", 0);
             Debug.Log("Game over");
             return;
         }
@@ -86,18 +88,21 @@ public class Units : MonoBehaviour
 
     void Attack()
     {
+        animator.SetInteger("state", 2);
         targetScript.LoseHealth(attack);
     }
 
     void Move()
     {
-        Debug.Log("Too Far");
+        animator.SetInteger("state", 1);
+        float step = speed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
     }
 
     void AttemptAction ()
     {
         //If in range to attack
-        if (Mathf.Abs(target.transform.position.x - transform.position.x) <= range && Mathf.Abs(target.transform.position.y - transform.position.y) <= range)
+        if (Mathf.Abs(target.transform.position.x - transform.position.x) <= range*5 && Mathf.Abs(target.transform.position.y - transform.position.y) <= range*5)
         {
             Attack();
         }else
