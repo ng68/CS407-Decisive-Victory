@@ -9,7 +9,7 @@ public class Units : MonoBehaviour
     public int range;
     //public float moveTime = 0.1f;
 
-    //private Animator animator;
+    private Animator animator;
     private GameObject target;
     private GameObject[] oppUnits;
     private Units targetScript;
@@ -39,7 +39,7 @@ public class Units : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         if (transform.gameObject.tag == "Enemy")
         {
             //ally = false;
@@ -74,6 +74,7 @@ public class Units : MonoBehaviour
         target = FindClosest();
         if (target == null)
         {
+            animator.SetInteger("state", 0);
             Debug.Log("Game over");
             return;
         }
@@ -87,11 +88,13 @@ public class Units : MonoBehaviour
 
     void Attack()
     {
+        animator.SetInteger("state", 2);
         targetScript.LoseHealth(attack);
     }
 
     void Move()
     {
+        animator.SetInteger("state", 1);
         float step = speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
     }
@@ -99,7 +102,7 @@ public class Units : MonoBehaviour
     void AttemptAction ()
     {
         //If in range to attack
-        if (Mathf.Abs(target.transform.position.x - transform.position.x) <= range*10 && Mathf.Abs(target.transform.position.y - transform.position.y) <= range*10)
+        if (Mathf.Abs(target.transform.position.x - transform.position.x) <= range*5 && Mathf.Abs(target.transform.position.y - transform.position.y) <= range*5)
         {
             Attack();
         }else
@@ -111,7 +114,7 @@ public class Units : MonoBehaviour
     IEnumerator ReduceTime()
     {
         takeTime = true;
-        yield return new WaitForSeconds(.05f);
+        yield return new WaitForSeconds(.1f);
         takeTime = false;
     }
 }
