@@ -3863,7 +3863,7 @@ MonoBehaviour:
   defaultSen: 4
   defaultInvertY: 0
   level: Level1_Demo
-  menuNumber: 0
+  menuNumber: 7
   menuDefaultCanvas: {fileID: 1939101664952978}
   GeneralSettingsCanvas: {fileID: 1053070176235954}
   graphicsMenu: {fileID: 1181362766895746}
@@ -3875,6 +3875,8 @@ MonoBehaviour:
   newGameDialog: {fileID: 1889607586039040}
   loadGameDialog: {fileID: 1443681062563508}
   aboutDialog: {fileID: 0}
+  pauseDialog: {fileID: 0}
+  pauseCanvas: {fileID: 0}
   controllerSenText: {fileID: 114036040233595794}
   controllerSenSlider: {fileID: 114866046668010596}
   controlSenFloat: 4
@@ -8168,7 +8170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &224338451749987006
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8918,7 +8920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224362640284649458
 RectTransform:
   m_ObjectHideFlags: 0
