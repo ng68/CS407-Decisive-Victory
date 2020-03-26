@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Pause : MonoBehaviour
+public class GameUI : MonoBehaviour
 {
 
     [Header("Levels To Load")]
-    public string level;
-    private string levelToLoad;
-
-    [SerializeField] private int menuNumber;
+    public string mainMenu;
+    public string nextLevel;
 
     #region Canvas
     [Header("Pause Canvas")]
@@ -24,10 +22,15 @@ public class Pause : MonoBehaviour
     [SerializeField] private GameObject startButton;
     #endregion
 
+    #region Canvas
+    [Header("Game Log Canvas")]
+    [Space(10)]
+    [SerializeField] private GameObject LogText;
+    #endregion
+
     #region Initialisation - Button Selection & Menu Order
     private void Start()
     {
-        menuNumber = 1;
         if (PlayerPrefs.HasKey("username"))
         {
 
@@ -49,24 +52,26 @@ public class Pause : MonoBehaviour
         {   
             Time.timeScale = 0.0f;
             pauseDialog.SetActive(true);
+            LogText.GetComponent<Text>().text += '\n' + "Game Paused!";
         }
         if (buttonType == "Back")
         {
             if (!startButton.activeSelf)
                 Time.timeScale = 1.0f;
             pauseDialog.SetActive(false);
+            LogText.GetComponent<Text>().text += '\n' + "Game Resumed!";
         }
         if (buttonType == "Quit")
         {
             Time.timeScale = 1.0f;
-            Debug.Log(level);
-            SceneManager.LoadScene(level);
+            Debug.Log(mainMenu);
+            SceneManager.LoadScene(mainMenu);
         }
         if (buttonType == "Start")
         {
             Time.timeScale = 1.0f;
             startButton.SetActive(false);
-            
+            LogText.GetComponent<Text>().text += '\n' + "Game Started!";
         }
     }
 
