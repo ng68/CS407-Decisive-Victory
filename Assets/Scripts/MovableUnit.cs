@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MovableUnit : MonoBehaviour
 {
+    //for putting sold units back where they came from
+    private float sellPosX;
+    private float sellPosY;
 	//for putting the units back if their location is illegal
 	private float ogPosX;
 	private float ogPosY;
@@ -15,14 +18,28 @@ public class MovableUnit : MonoBehaviour
 	public bool isMovable = false;
 	//for holding a ref to the GameHandler gameobject
 	private GameObject gameHandler;
+    //for money interactions
+    private bool isPurchasable = false;
+    private bool isSellable = false;
+    public int price = 0;
 
-	void Start(){
+    void Start(){
 		//checks if the tag is enemy or ally and sets isMovable accordingly. 
 		//If neither we likely shouldnt be able to move it too.
 		if(this.tag == "Enemy"){
 			this.isMovable = false;
+            //these are just to make sure these things are set correctly. 
+            this.isPurchasable = false;
+            this.isSellable = false;
 		}else if(this.tag == "Ally"){
-			this.isMovable = true;
+            //sets the "to sell position", only matters for units we can buy/sell
+            sellPosX = this.transform.localPosition.x;
+            sellPosY = this.transform.localPosition.y;
+            //these are just to make sure things are set correctly. IF FRIENDLY UNITS SPAWN(like start the level) ON BOARD THIS LOGIC DOES NOT WORK
+            this.isPurchasable = true;
+            this.isSellable = false;
+			
+            this.isMovable = true;
 		}else{
 			this.isMovable = false;
 		}
@@ -68,11 +85,33 @@ public class MovableUnit : MonoBehaviour
     		mousePos = Input.mousePosition;
     		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
     		gameHandler.GetComponent<GridHandler>().GridCheck(mousePos, out snapPos, out check);
-    		if(check == true){
-    			this.gameObject.transform.localPosition = snapPos;
+    		if(check == true){//we dropped the unit in a legal position
+                //check if unit is "to be purchased"
+                if (isPurchasable == true) {
+                    if (gameHandler.GetComponent<Currency>().changeGold(price) >= 0){
+                        //we have enough money to buy the object
+                        isPurchasable = false;
+                        isSellable = true;
+                        this.gameObject.transform.localPosition = snapPos;
+                    }
+                    else{
+                        //we don't have enough money to buy the object
+                        this.gameObject.transform.localPosition = new Vector3(ogPosX, ogPosY, 0);
+                    }
+                }
     		}else{
     			//if we dropped the unit in an illegal position
-    			this.gameObject.transform.localPosition = new Vector3(ogPosX, ogPosY, 0);
+                //check if its sellable
+                if(isSellable == true){
+                    int newPrice = price * -1;//invert price
+                    gameHandler.GetComponent<Currency>().changeGold(newPrice);
+                    //now we need to place the gameObject back where it came from...
+                    this.gameObject.transform.localPosition = new Vector3(sellPosX, sellPosY, 0);
+                    isSellable = false;
+                    isPurchasable = true;
+                }else{
+                    this.gameObject.transform.localPosition = new Vector3(ogPosX, ogPosY, 0);
+                }
     		}
 
     	}

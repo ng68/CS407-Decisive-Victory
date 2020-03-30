@@ -304,6 +304,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 113025243, guid: c78964a868130e046832ee43d8b97d86, type: 3}
+      propertyPath: price
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 113025243, guid: c78964a868130e046832ee43d8b97d86, type: 3}
+      propertyPath: isPurchasable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1044937863551718, guid: c78964a868130e046832ee43d8b97d86, type: 3}
       propertyPath: m_Name
       value: zombie
@@ -1805,6 +1813,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1149547452}
   - component: {fileID: 1149547451}
+  - component: {fileID: 1149547453}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -1842,6 +1851,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1149547453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149547450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3129400b70d2e44ead9fb28ab1faee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingGold: 200
+  gold: 0
 --- !u!1 &1174177229
 GameObject:
   m_ObjectHideFlags: 0
