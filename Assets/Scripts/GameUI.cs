@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class GameUI : MonoBehaviour
 {
-
+    public bool gameStarted;
     [Header("Levels To Load")]
     public string mainMenu;
     public string nextLevel;
@@ -59,8 +59,10 @@ public class GameUI : MonoBehaviour
         }
         if (buttonType == "Back")
         {
-            if (!startButton.activeSelf)
+            if (gameStarted == true)
                 Time.timeScale = 1.0f;
+            else
+                startButton.SetActive(true);
             pauseDialog.SetActive(false);
             LogText.GetComponent<Text>().text += '\n' + "Game Resumed!";
             pauseButton.SetActive(true);
@@ -75,6 +77,7 @@ public class GameUI : MonoBehaviour
         {
             Time.timeScale = 1.0f;
             startButton.SetActive(false);
+            gameStarted = true;
             LogText.GetComponent<Text>().text += '\n' + "Game Started!";
         }
     }
