@@ -20,6 +20,7 @@ public class GameUI : MonoBehaviour
     [Header("Pause Dialogs")]
     [SerializeField] private GameObject pauseDialog;
     [SerializeField] private GameObject startButton;
+    [SerializeField] private GameObject pauseButton;
     #endregion
 
     #region Canvas
@@ -53,6 +54,8 @@ public class GameUI : MonoBehaviour
             Time.timeScale = 0.0f;
             pauseDialog.SetActive(true);
             LogText.GetComponent<Text>().text += '\n' + "Game Paused!";
+            pauseButton.SetActive(false);
+            startButton.SetActive(false);
         }
         if (buttonType == "Back")
         {
@@ -60,6 +63,7 @@ public class GameUI : MonoBehaviour
                 Time.timeScale = 1.0f;
             pauseDialog.SetActive(false);
             LogText.GetComponent<Text>().text += '\n' + "Game Resumed!";
+            pauseButton.SetActive(true);
         }
         if (buttonType == "Quit")
         {
