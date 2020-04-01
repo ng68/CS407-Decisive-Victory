@@ -28,12 +28,6 @@ public class GameUI : MonoBehaviour
     [SerializeField] private GameObject LogText;
     #endregion
 
-    #region Canvas
-    [Header("Game Log Canvas")]
-    [Space(10)]
-    [SerializeField] private GameObject LogText;
-    #endregion
-
     #region Initialisation - Button Selection & Menu Order
     private void Start()
     {

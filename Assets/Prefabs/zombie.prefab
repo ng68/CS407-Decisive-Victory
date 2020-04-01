@@ -187,9 +187,9 @@ GameObject:
   - component: {fileID: 4919699351270174}
   - component: {fileID: 212973890491868762}
   - component: {fileID: 95016758148294110}
-  - component: {fileID: 1670601649186442606}
   - component: {fileID: 113025242}
   - component: {fileID: 113025243}
+  - component: {fileID: 3535076684575238596}
   m_Layer: 9
   m_Name: zombie
   m_TagString: Ally
@@ -281,23 +281,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1670601649186442606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044937863551718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93c523cc042094f43914853f2ce0f108, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 1000
-  attack: 2
-  range: 1
-  pauseButton: {fileID: 0}
-  startButton: {fileID: 0}
 --- !u!61 &113025242
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -337,4 +320,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMovable: 1
-  price: 200
+  price: 400
+--- !u!114 &3535076684575238596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044937863551718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffe03e5eee73724eaac05c5ff6f1252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  attack: 1
+  attackSpeed: 1
+  range: 1
+  magical: 0
+  physicalArmorPercent: 0
+  magicalArmorPercent: 0
+  moveTime: 0.2
+  healthBar: {fileID: 0}
+  maxHealth: 0
