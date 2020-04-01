@@ -31,7 +31,7 @@ public class MovableUnit : MonoBehaviour
         priceText = null;
         priceTextBox = null;
         Transform trans = this.transform;
-        Transform childTrans = trans.Find("Price_Canvas");
+        Transform childTrans = trans.Find("Canvas");
         if(childTrans != null){
             Transform transFinal = childTrans.Find("Price");
             //just to make sure none of this is causing errors.

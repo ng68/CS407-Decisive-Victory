@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 1026257671}
   - component: {fileID: 1026257670}
   m_Layer: 5
-  m_Name: Price_Canvas
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 2358871553915785414}
   m_Layer: 9
   m_Name: mage_dark
-  m_TagString: Enemy
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
