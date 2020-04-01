@@ -54,7 +54,12 @@ public class MovableUnit : MonoBehaviour
     		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
     		this.gameObject.transform.localPosition = new Vector3(mousePos.x - tempPosX, mousePos.y - tempPosY, 0);
     	}
-        
+        1
+    }
+
+    public bool CanAct(){
+        return isSellable;
+
     }
 
     private void OnMouseDown(){
