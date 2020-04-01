@@ -10,7 +10,7 @@ public class GridHandler : MonoBehaviour
 	private void Start() {
 		//Because of first version (white/black) prefab size, the cellsize has to be 10
 		//otherwise it can be variabled, but prefab size needs to scale to cellsize (it currently does not)
-		grid = new GameGrid(10, 10, 10f);
+		grid = new GameGrid(9, 9, 10f);
 		BoardSetup();
 	}
 
