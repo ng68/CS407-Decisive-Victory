@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MovableUnit : MonoBehaviour
 {
@@ -18,12 +19,38 @@ public class MovableUnit : MonoBehaviour
 	public bool isMovable = false;
 	//for holding a ref to the GameHandler gameobject
 	private GameObject gameHandler;
+    //for holding a ref to the textbox the unit has
+    private GameObject priceTextBox;
+    private Text priceText;
     //for money interactions
     private bool isPurchasable = false;
     private bool isSellable = false;
     public int price = 0;
 
     void Start(){
+        priceText = null;
+        priceTextBox = null;
+        Transform trans = this.transform;
+        Transform childTrans = trans.Find("Price_Canvas");
+        if(childTrans != null){
+            Transform transFinal = childTrans.Find("Price");
+            //just to make sure none of this is causing errors.
+            if(transFinal != null){//good practice, and I have a feeling sometimes there could be errors with this so I'll be safe.
+                priceTextBox = transFinal.gameObject;
+                priceText = priceTextBox.GetComponent<Text>();
+                //move to update if any units are going to have "changing prices"
+                priceText.text = price.ToString();
+            }else{
+                Debug.Log("Couldn't find Price Text:");
+                Debug.Log(this.name);
+            }
+        }else{
+            Debug.Log("Couldn't find Price Canvas:");
+            Debug.Log(this.name);
+        }
+
+        //finds the gameHandler
+        gameHandler = GameObject.Find("GameHandler");
 		//checks if the tag is enemy or ally and sets isMovable accordingly. 
 		//If neither we likely shouldnt be able to move it too.
 		if(this.tag == "Enemy"){
@@ -31,6 +58,8 @@ public class MovableUnit : MonoBehaviour
             //these are just to make sure these things are set correctly. 
             this.isPurchasable = false;
             this.isSellable = false;
+            //Yes this next line causes an error if the "priceText" doesn't exist, however that does not break the game functioning at all.
+            priceTextBox.active = false;
 		}else if(this.tag == "Ally"){
             //sets the "to sell position", only matters for units we can buy/sell
             sellPosX = this.transform.localPosition.x;
@@ -40,11 +69,10 @@ public class MovableUnit : MonoBehaviour
             this.isSellable = false;
 			
             this.isMovable = true;
+            priceTextBox.active = true;
 		}else{
 			this.isMovable = false;
 		}
-		//finds the gameHandler
-		gameHandler = GameObject.Find("GameHandler");
 	}
     // Update is called once per frame
     void Update(){
@@ -54,12 +82,13 @@ public class MovableUnit : MonoBehaviour
     		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
     		this.gameObject.transform.localPosition = new Vector3(mousePos.x - tempPosX, mousePos.y - tempPosY, 0);
     	}
-        1
+        if(isPurchasable == true && Time.timeScale != 0 ){
+            gameObject.active = false;            
+        }
     }
-
+    //might be needed to detect victory conditions
     public bool CanAct(){
         return isSellable;
-
     }
 
     private void OnMouseDown(){
@@ -98,6 +127,7 @@ public class MovableUnit : MonoBehaviour
                         isPurchasable = false;
                         isSellable = true;
                         this.gameObject.transform.localPosition = snapPos;
+                        priceTextBox.active = false;
                     }
                     else{
                         //we don't have enough money to buy the object
@@ -114,6 +144,7 @@ public class MovableUnit : MonoBehaviour
                     this.gameObject.transform.localPosition = new Vector3(sellPosX, sellPosY, 0);
                     isSellable = false;
                     isPurchasable = true;
+                    priceTextBox.active = true;
                 }else{
                     this.gameObject.transform.localPosition = new Vector3(ogPosX, ogPosY, 0);
                 }
