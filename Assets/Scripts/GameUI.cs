@@ -7,7 +7,9 @@ using UnityEngine.EventSystems;
 
 public class GameUI : MonoBehaviour
 {
+
     public bool gameStarted;
+    
     [Header("Levels To Load")]
     public string mainMenu;
     public string nextLevel;
