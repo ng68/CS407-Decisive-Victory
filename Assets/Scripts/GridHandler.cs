@@ -10,7 +10,7 @@ public class GridHandler : MonoBehaviour
 	private void Start() {
 		//Because of first version (white/black) prefab size, the cellsize has to be 10
 		//otherwise it can be variabled, but prefab size needs to scale to cellsize (it currently does not)
-		grid = new GameGrid(10, 10, 10f);
+		grid = new GameGrid(9, 9, 10f);
 		BoardSetup();
 	}
 
@@ -44,8 +44,14 @@ public class GridHandler : MonoBehaviour
 		}
 	}
 
+	//accessor function for grid snapping
+	public void GridCheck(Vector3 pos, out Vector3 toSnap, out bool success){
+		grid.DropUnitOnSquare(pos, out toSnap, out success);
+	}
+
+
 	//recursive functions to obtain the mouse's current position
-	//MOVE ELSEWHERE
+	//MOVE ELSEWHERE... maybe?
 
 	public static Vector3 GetMouseWorldPosition(){
 		Vector3 vec = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);

@@ -16,20 +16,21 @@ public class GameGrid {
 
 		gridArray = new int[width, height];
 
-		Debug.Log(width + " " + height);
-
+		//Debug.Log(width + " " + height);
+		/*
+		//following lines are to see the effective grid with debug lines
+		//uncomment for testing / do not delete
 		for(int x = 0; x < gridArray.GetLength(0); x++){
 			for(int y = 0; y < gridArray.GetLength(1); y++){
-				//following lines are to see the effective grid with debug lines
-				//uncomment for testing / do not delete
 				//Debug.Log(x + ", " + y);
-				//Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.black, 100f);
-				//Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.black, 100f);
+				Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.black, 100f);
+				Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.black, 100f);
 			}
 		}
 		//These draw the outer edges of the grid
-		//Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.black, 100f);
-		//Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.black, 100f);
+		Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.black, 100f);
+		Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.black, 100f);
+		*/
 	}
 
 	//accessor methods
@@ -59,16 +60,32 @@ public class GameGrid {
 		y = Mathf.FloorToInt(worldPosition.y / cellSize);
 	}
 
+	//clicking functions
 	public void SquareClick (Vector3 worldPosition){
+		//currently there is no need for a function on click, but is still here for testing purposes
 		int x, y;
 		GetXY(worldPosition, out x, out y);
 		if(x >= 0 && y >= 0 && x < width && y < height){
 
 			//currently this function just counts how many times you click on it
-			gridArray[x, y]++;		
+			//gridArray[x, y]++;	
 			//Debug.Log(x + " " + y + " " + gridArray[x, y]);
 		}else{
 			//Debug.Log("Out of bounds click");
+		}
+	}
+
+	public void DropUnitOnSquare (Vector3 worldPosition, out Vector3 endPos, out bool success){
+		int x, y;
+		GetXY(worldPosition, out x, out y);
+		//this is so the function atleast sets endPos once even though it wont matter if it fails
+		endPos = worldPosition;
+		if(x >= 0 && y >= 0 && x < width && y < height){
+			success = true;
+			endPos = GetProperWorldPosition(x, y);
+		}else{
+			success = false;
+			//Debug.Log("Out of bounds drop");
 		}
 	}
 }
