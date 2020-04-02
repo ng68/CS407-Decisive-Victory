@@ -94,6 +94,10 @@ public class GameUI : MonoBehaviour
     {
         GetComponent<AudioSource>().Play();
     }
+
+    public GameObject getCurrency(){
+    	return Currency;
+    }
 }
 
 
