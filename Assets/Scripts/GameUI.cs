@@ -31,6 +31,12 @@ public class GameUI : MonoBehaviour
     [SerializeField] private GameObject LogText;
     #endregion
 
+    #region Canvas
+    [Header("Buy Canvas")]
+    [Space(10)]
+    [SerializeField] private GameObject Currency;
+    #endregion
+
     #region Initialisation - Button Selection & Menu Order
     private void Start()
     {
