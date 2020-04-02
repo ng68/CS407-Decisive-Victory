@@ -31,6 +31,7 @@ public class Init_LoadPreferences : MonoBehaviour
     [SerializeField] private bool isMenu = false;
     [SerializeField] private MenuController menuController;
     #endregion
+    public SaveLoad saves;
 
     private void Awake()
     {
@@ -100,8 +101,11 @@ public class Init_LoadPreferences : MonoBehaviour
             }
             if (PlayerPrefs.HasKey("userName"))
             {
-                PlayerPrefs.SetString("userName", "Juniper");
-                PlayerPrefs.SetInt("levels", 4);
+                Debug.LogWarning("PlayerPrefs entry found.");
+                Debug.LogWarning(UnityEngine.Application.persistentDataPath);
+                saves.Load();
+                PlayerPrefs.SetString("userName", saves.saves[0].charname);
+                PlayerPrefs.SetInt("levels", saves.saves[0].levelswon);
                 Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
                 string profName = PlayerPrefs.GetString("userName");
                 int profLevels = PlayerPrefs.GetInt("levels");
@@ -110,8 +114,20 @@ public class Init_LoadPreferences : MonoBehaviour
             }
             else
             {
-                PlayerPrefs.SetString("userName", "Luna");
-                PlayerPrefs.SetInt("levels", 3);
+                Debug.LogWarning("PlayerPrefs entry found.");
+                Debug.LogWarning(UnityEngine.Application.persistentDataPath);
+                savedata juniperTest = new savedata();
+                juniperTest.charname = "Juniper";
+                juniperTest.levelswon = 2;
+                saves.saves.Add(juniperTest);
+                saves.Save();
+                PlayerPrefs.SetString("userName", saves.saves[0].charname);
+                PlayerPrefs.SetInt("levels", saves.saves[0].levelswon);
+                Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+                string profName = PlayerPrefs.GetString("userName");
+                int profLevels = PlayerPrefs.GetInt("levels");
+                string toChange = "Welcome " + profName + "\nYou have completed: \n" + profLevels + " Levels!";
+                thisButton.GetComponentInChildren<Text>().text = toChange;
             }
         }
     }

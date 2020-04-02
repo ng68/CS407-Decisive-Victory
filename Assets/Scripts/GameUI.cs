@@ -88,6 +88,11 @@ public class GameUI : MonoBehaviour
             gameStarted = true;
             LogText.GetComponent<Text>().text += '\n' + "Game Started!";
         }
+
+        if (buttonType == "Retry")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private void ClickSound()
