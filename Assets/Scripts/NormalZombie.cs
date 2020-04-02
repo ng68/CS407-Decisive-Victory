@@ -7,7 +7,9 @@ public class NormalZombie : Units
 {
     private bool died = false;
     private bool zombieSlayer = false;
-
+    void Start(){
+        type = "Zombie";
+    }
     override public void LoseHealth(GameObject attacker, float damage, bool typeMagical)
     {
         float dmgTaken;

@@ -16,7 +16,7 @@ public abstract class Units : MonoBehaviour
     //public Button startButton;
     public float moveTime = 0.2f;
     public Image healthBar;
-    
+    public string type = "Empty";
     
     [HideInInspector]
     public float maxHealth;
@@ -190,4 +190,9 @@ public abstract class Units : MonoBehaviour
         yield return new WaitForSeconds(attackSpeed);
         attackingPause = false;
     }
+
+    public string GetType(){
+        return type;
+    }
+
 }

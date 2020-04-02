@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class NormalMage : Units
 {
-    
+	void Start(){
+		type = "Mage";
+	}
 }
