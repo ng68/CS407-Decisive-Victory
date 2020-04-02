@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NormalZombie : Units
 {
     private bool died = false;
+    private bool zombieSlayer = false;
 
     override public void LoseHealth(GameObject attacker, float damage, bool typeMagical)
     {
         float dmgTaken;
+        if (attacker.name.Contains("knight")) {
+            zombieSlayer = true;
+        }
         if (typeMagical) {
             dmgTaken = damage * (1 - magicalArmorPercent);
             health = health - dmgTaken;
@@ -21,9 +26,13 @@ public class NormalZombie : Units
         //Debug.Log(attacker.name + " is attacking " + gameObject.name + " for " + dmgTaken + " damage!");
         if (health <= 0)
         {
-            if (died) {
+            if (died || zombieSlayer) {
                 //transform.gameObject.tag = "Dead";
                 //Play death animation
+                if (zombieSlayer) {
+                    LogText.GetComponent<Text>().text += '\n' + "Zombieslayer debuff prevented " + gameObject.name + " from reviving";
+                }
+                LogText.GetComponent<Text>().text += '\n' + gameObject.name + " was killed by " + attacker.name;
                 transform.gameObject.SetActive(false);
             }else {
                 health = maxHealth / 2;
@@ -32,6 +41,7 @@ public class NormalZombie : Units
                 attack = attack / 2;
                 healthBar.fillAmount = health/maxHealth;
                 died = true;
+                LogText.GetComponent<Text>().text += '\n' + gameObject.name + " revived";
             }
         }
     }

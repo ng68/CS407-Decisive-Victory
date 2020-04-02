@@ -17,8 +17,10 @@ public abstract class Units : MonoBehaviour
     public float moveTime = 0.2f;
     public Image healthBar;
     
+    
     [HideInInspector]
     public float maxHealth;
+    public GameObject LogText;
 
     private SpriteRenderer mySpriteRenderer;
     private Animator animator;
@@ -55,6 +57,7 @@ public abstract class Units : MonoBehaviour
     void Start()
     {
         maxHealth = health;
+        LogText = GameObject.Find("/UIController/Log_Canvas/GameLog_Canvas/Log Field/Log Text");
         StartCoroutine(PauseTime());
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         
@@ -92,6 +95,7 @@ public abstract class Units : MonoBehaviour
         {
             //transform.gameObject.tag = "Dead";
             //Play death animation
+            LogText.GetComponent<Text>().text += '\n' + gameObject.name + " was killed by " + attacker.name;
             transform.gameObject.SetActive(false);
         }
     }
