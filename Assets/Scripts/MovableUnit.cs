@@ -146,6 +146,9 @@ public class MovableUnit : MonoBehaviour
                         //we don't have enough money to buy the object
                         this.gameObject.transform.localPosition = new Vector3(ogPosX, ogPosY, 0);
                     }
+                }else{
+                    //We already purchased it but are rearranging it on screen
+                    this.gameObject.transform.localPosition = snapPos;
                 }
     		}else{
     			//if we dropped the unit in an illegal position
