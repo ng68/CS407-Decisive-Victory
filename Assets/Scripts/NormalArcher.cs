@@ -6,5 +6,6 @@ public class NormalArcher : Units
 {
 	void Start(){
 		type = "Archer";
+		base.Start();
 	}
 }

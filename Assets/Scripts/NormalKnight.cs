@@ -6,5 +6,6 @@ public class NormalKnight : Units
 {
 	void Start(){
 		type = "Knight";
+		base.Start();
 	}  
 }
