@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalArcher : Units
 {
-	void Start(){
+	override public void Start(){
 		type = "Archer";
 		base.Start();
 	}

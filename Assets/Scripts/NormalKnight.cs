@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalKnight : Units
 {
-	void Start(){
+	override public void Start(){
 		type = "Knight";
 		base.Start();
 	}  

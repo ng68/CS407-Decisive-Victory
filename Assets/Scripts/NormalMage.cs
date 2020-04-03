@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalMage : Units
 {
-	void Start(){
+	override public void Start(){
 		type = "Mage";
 		base.Start();
 	}

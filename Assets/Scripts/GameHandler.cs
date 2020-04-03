@@ -32,13 +32,13 @@ public class GameHandler : MonoBehaviour
             enemyUnits = GameObject.FindGameObjectsWithTag("Enemy");
 
             foreach (GameObject go in allyUnits) {
-                if (go.active) {
+                if (go.activeSelf) {
                     allyDeadCheck = false;
                 }
             }
 
             foreach (GameObject go in enemyUnits) {
-                if (go.active) {
+                if (go.activeSelf) {
                     enemyDeadCheck = false;
                 }
             }
@@ -46,13 +46,13 @@ public class GameHandler : MonoBehaviour
             if (allyDeadCheck) {
                 gameEnd = true;
                 Time.timeScale = 0.0f;
-                loseScreen.active = true;
+                loseScreen.SetActive(true);
             }
 
             if (enemyDeadCheck) {
                 gameEnd = true;
                 Time.timeScale = 0.0f;
-                winScreen.active = true;
+                winScreen.SetActive(true);
             }  
         }
     }

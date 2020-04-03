@@ -16,11 +16,12 @@ public abstract class Units : MonoBehaviour
     //public Button startButton;
     public float moveTime = 0.2f;
     public Image healthBar;
-    public string type = "Empty";
+    
     
     [HideInInspector]
     public float maxHealth;
     public GameObject LogText;
+    public string type = "Empty";
 
     private SpriteRenderer mySpriteRenderer;
     private Animator animator;
@@ -78,7 +79,7 @@ public abstract class Units : MonoBehaviour
         
     }
 
-    public virtual void LoseHealth(GameObject attacker, float damage, bool typeMagical)
+    public virtual void LoseHealth(GameObject attacker, string attackerType, float damage, bool typeMagical)
     {
         float dmgTaken;
         if (typeMagical) {
@@ -131,7 +132,7 @@ public abstract class Units : MonoBehaviour
         }
 
         animator.SetInteger("state", 2);
-        targetScript.LoseHealth(gameObject, attack, magical);
+        targetScript.LoseHealth(gameObject, type, attack, magical);
     }
 
     public virtual void Move()
@@ -190,9 +191,4 @@ public abstract class Units : MonoBehaviour
         yield return new WaitForSeconds(attackSpeed);
         attackingPause = false;
     }
-
-    public string GetType(){
-        return type;
-    }
-
 }

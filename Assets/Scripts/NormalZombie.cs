@@ -7,14 +7,16 @@ public class NormalZombie : Units
 {
     private bool died = false;
     private bool zombieSlayer = false;
-    void Start(){
+    
+    override public void Start(){
         type = "Zombie";
         base.Start();
     }
-    override public void LoseHealth(GameObject attacker, float damage, bool typeMagical)
+
+    override public void LoseHealth(GameObject attacker, string attackerType, float damage, bool typeMagical)
     {
         float dmgTaken;
-        if (attacker.name.Contains("knight")) {
+        if (attackerType.Equals("Knight")) {
             zombieSlayer = true;
         }
         if (typeMagical) {
