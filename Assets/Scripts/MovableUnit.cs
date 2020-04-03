@@ -98,8 +98,12 @@ public class MovableUnit : MonoBehaviour
     		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
     		this.gameObject.transform.localPosition = new Vector3(mousePos.x - tempPosX, mousePos.y - tempPosY, 0);
     	}
-        if(isPurchasable == true && Time.timeScale != 0 ){
-            gameObject.SetActive(false);            
+        if(Time.timeScale != 0){
+            if(isPurchasable == true){
+                gameObject.SetActive(false);            
+            }else{
+                this.isMovable = false;
+            }
         }
     }
     //might be needed to detect victory conditions
