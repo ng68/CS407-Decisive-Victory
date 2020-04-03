@@ -33,6 +33,5 @@ public class Currency : MonoBehaviour
             gold = (uint)newGold;
             return newGold;
         }
-        return -2;
     }
 }

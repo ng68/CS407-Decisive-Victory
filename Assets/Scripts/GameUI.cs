@@ -45,6 +45,7 @@ public class GameUI : MonoBehaviour
     #region Initialisation - Button Selection & Menu Order
     private void Start()
     {
+        gameStarted = false;
         if (PlayerPrefs.HasKey("username"))
         {
 
@@ -74,8 +75,9 @@ public class GameUI : MonoBehaviour
         {
             if (gameStarted == true)
                 Time.timeScale = 1.0f;
-            else
+            else if (gameStarted == false) {
                 startButton.SetActive(true);
+            }
             pauseDialog.SetActive(false);
             LogText.GetComponent<Text>().text += '\n' + "Game Resumed!";
             pauseButton.SetActive(true);
