@@ -101,6 +101,7 @@ public class GameUI : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+        // Pause Menu Game Settings.
         if (buttonType == "Settings")
         {
             // Enter Game Settings
