@@ -2229,6 +2229,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.0004119873
       objectReference: {fileID: 0}
+    - target: {fileID: 8153392827548100703, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: m_Text
+      value: Welcome to Decisive Victory!
+      objectReference: {fileID: 0}
     - target: {fileID: 8153392827730535433, guid: 5786518e9148c0546ab64a621647b6ef,
         type: 3}
       propertyPath: m_Colors.m_NormalColor.r
