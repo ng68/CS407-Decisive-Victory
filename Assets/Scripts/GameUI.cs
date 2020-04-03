@@ -34,7 +34,6 @@ public class GameUI : MonoBehaviour
     [Header("Game Log Canvas")]
     [Space(10)]
     [SerializeField] private GameObject LogText;
-    [SerializeField] private GameObject LogField;
     #endregion
 
     #region Canvas
@@ -61,20 +60,13 @@ public class GameUI : MonoBehaviour
 
     //MAIN SECTION
 
-    public void AppendLog(string message) {
-            LogText.GetComponent<Text>().text += '\n' + message;
-            Canvas.ForceUpdateCanvases();
-            LogField.GetComponent<ScrollRect>().verticalNormalizedPosition = 0.0f;
-            Canvas.ForceUpdateCanvases();        
-    }
-
     public void  MouseClick(string buttonType)
     {
         if (buttonType == "Pause")
         {   
             Time.timeScale = 0.0f;
             pauseDialog.SetActive(true);
-            AppendLog("Game Paused!");
+            LogText.GetComponent<Text>().text += '\n' + "Game Paused!";
             pauseButton.SetActive(false);
             startButton.SetActive(false);
         }
@@ -86,7 +78,7 @@ public class GameUI : MonoBehaviour
                 startButton.SetActive(true);
             }
             pauseDialog.SetActive(false);
-            AppendLog("Game Resumed!");
+            LogText.GetComponent<Text>().text += '\n' + "Game Resumed!";
             pauseButton.SetActive(true);
         }
         if (buttonType == "Quit")
@@ -100,7 +92,7 @@ public class GameUI : MonoBehaviour
             Time.timeScale = 1.0f;
             startButton.SetActive(false);
             gameStarted = true;
-            AppendLog("Game Started");
+            LogText.GetComponent<Text>().text += '\n' + "Game Started!";
         }
 
         if (buttonType == "Retry")
@@ -112,13 +104,13 @@ public class GameUI : MonoBehaviour
         if (buttonType == "Settings")
         {
             // Enter Game Settings
-            AppendLog("Settings");
+            LogText.GetComponent<Text>().text += '\n' + "Game Settings!";
             pauseDialog.SetActive(false);
             settingsDialog.SetActive(true);
         }
         if(buttonType == "Back2")
         {
-            AppendLog("Back to Pause Menu!");
+            LogText.GetComponent<Text>().text += '\n' + "Back to Pause Menu!";
             settingsDialog.SetActive(false);
             pauseDialog.SetActive(true);
         }
