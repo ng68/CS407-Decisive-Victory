@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class MenuController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject gameplayMenu;
     [SerializeField] private GameObject controlsMenu;
     [SerializeField] private GameObject confirmationMenu;
+    [SerializeField] private GameObject leaderboardCanvas;
     [Space(10)]
     [Header("Menu Popout Dialogs")]
     [SerializeField] private GameObject noSaveDialog;
@@ -53,8 +55,10 @@ public class MenuController : MonoBehaviour
     [Space(10)]
     [SerializeField] private Toggle invertYToggle;
     #endregion
-
     #region Initialisation - Button Selection & Menu Order
+    public SaveLoad saver;
+    public static int activeProfile;
+    public static savedata[] saves = new savedata[2];
     private void Start()
     {
         menuNumber = 1;
@@ -67,7 +71,31 @@ public class MenuController : MonoBehaviour
             PlayerPrefs.SetString("userName", "Luna");
             PlayerPrefs.SetInt("levels", 3);
         }
+        for (int i = 0; i < 2; i++)
+        {
+            saves[i] = new savedata();
+        }
+        saves[0].charname = "Luna";
+        saves[0].score = 4;
+        saves[0].levelswon = 1;
 
+        saves[1].charname = "Willow";
+        saves[1].score = 0;
+        saves[1].levelswon = 0;
+        activeProfile = 0;
+        /*
+            Array.Sort(saves);
+
+
+            Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
+            Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
+
+            string b1Text = saves[1].charname + "               " + saves[1].score + "\n";
+            string b2Text = saves[0].charname + "               " + saves[1].score + "\n";
+
+            butt1.GetComponentInChildren<Text>().text = b1Text;
+            butt2.GetComponentInChildren<Text>().text = b2Text;
+        */
     }
     #endregion
 
@@ -85,7 +113,7 @@ public class MenuController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (menuNumber == 2 || menuNumber == 7 || menuNumber == 8 || menuNumber == 9)
+            if (menuNumber == 2 || menuNumber == 7 || menuNumber == 8 || menuNumber == 9 || menuNumber == 10)
             {
                 GoBackToMainMenu();
                 ClickSound();
@@ -111,7 +139,7 @@ public class MenuController : MonoBehaviour
     }
 
     #region Menu Mouse Clicks
-    public void  MouseClick(string buttonType)
+    public void MouseClick(string buttonType)
     {
         if (buttonType == "Controls")
         {
@@ -141,52 +169,73 @@ public class MenuController : MonoBehaviour
             menuNumber = 5;
         }
 
-		if(buttonType == "Exit")
-		{
-			Debug.Log("YES QUIT!");
-			Application.Quit();
-		}
-	
-		if(buttonType == "Options")
-		{
+        if (buttonType == "Exit")
+        {
+            Debug.Log("YES QUIT!");
+            Application.Quit();
+        }
+
+        if (buttonType == "Options")
+        {
             menuDefaultCanvas.SetActive(false);
             GeneralSettingsCanvas.SetActive(true);
             menuNumber = 2;
         }
-	
-		if(buttonType == "LoadGame")
-		{
+
+        if (buttonType == "LoadGame")
+        {
             menuDefaultCanvas.SetActive(false);
             loadGameDialog.SetActive(true);
             menuNumber = 8;
         }
-	
-		if(buttonType == "NewGame")
-		{
+
+        if (buttonType == "NewGame")
+        {
             menuDefaultCanvas.SetActive(false);
             newGameDialog.SetActive(true);
             menuNumber = 7;
         }
-        if(buttonType == "About")
-		{
+        if (buttonType == "About")
+        {
             menuDefaultCanvas.SetActive(false);
             aboutDialog.SetActive(true);
             menuNumber = 9;
         }
-        if(buttonType == "NewProfile")
+        if (buttonType == "NewProfile")
         {
-            Debug.Log("Attempting to switch profiles!");
-            if (GameObject.Find("Profile_Button").GetComponent<Button>())
-            {
-                Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
-                string profName = "Luna";
-                string profLevels = "5";
-                string toChange = "Welcome " + profName+"\nYou have completed: \n"+profLevels+" Levels!";
-                thisButton.GetComponentInChildren<Text>().text = toChange;
-                Debug.Log("Button found!");
-                
-            }
 
+            menuDefaultCanvas.SetActive(false);
+            leaderboardCanvas.SetActive(true);
+            menuNumber = 10;
+            Array.Sort(saves);
+
+            Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
+            Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
+
+            string b1Text = saves[1].charname + "               " + saves[1].score + "\n";
+            string b2Text = saves[0].charname + "               " + saves[0].score + "\n";
+
+            butt1.GetComponentInChildren<Text>().text = b1Text;
+            butt2.GetComponentInChildren<Text>().text = b2Text;
+
+        }
+
+        if (buttonType == "P1")
+        {
+            PlayerPrefs.SetString("userName", saves[1].charname);
+            PlayerPrefs.SetInt("score", saves[1].score);
+            PlayerPrefs.SetInt("activeProfile", 1);
+            activeProfile = 1;
+            GoBackToMainMenu();
+        }
+
+        if (buttonType == "P2")
+        {
+            PlayerPrefs.SetString("userName", saves[0].charname);
+            PlayerPrefs.SetInt("score", saves[0].score);
+            PlayerPrefs.SetInt("activeProfile", 0);
+            activeProfile = 0;
+            GoBackToMainMenu();
         }
     }
     #endregion
@@ -303,7 +352,7 @@ public class MenuController : MonoBehaviour
     {
         if (ButtonType == "Yes")
         {
-           if (PlayerPrefs.HasKey("SavedLevel"))
+            if (PlayerPrefs.HasKey("SavedLevel"))
             {
                 Debug.Log("I WANT TO LOAD THE SAVED GAME");
                 //LOAD LAST SAVED SCENE
@@ -338,9 +387,13 @@ public class MenuController : MonoBehaviour
     public void GoBackToOptionsMenu()
     {
         GeneralSettingsCanvas.SetActive(true);
+
         graphicsMenu.SetActive(false);
         soundMenu.SetActive(false);
         gameplayMenu.SetActive(false);
+        leaderboardCanvas.SetActive(false);
+        //saver.saves = this.saves;
+        //saver.Save();
 
         GameplayApply();
         BrightnessApply();
@@ -352,6 +405,12 @@ public class MenuController : MonoBehaviour
     public void GoBackToMainMenu()
     {
         menuDefaultCanvas.SetActive(true);
+        Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+        int score = saves[activeProfile].score;
+        string profName = saves[activeProfile].charname;
+        string toChange = "Welcome " + profName + "\nYour score is " + score;
+        thisButton.GetComponentInChildren<Text>().text = toChange;
+        leaderboardCanvas.SetActive(false);
         newGameDialog.SetActive(false);
         loadGameDialog.SetActive(false);
         aboutDialog.SetActive(false);
@@ -380,4 +439,16 @@ public class MenuController : MonoBehaviour
         GoBackToMainMenu();
     }
     #endregion
+
+    /*void OnEnable()
+    {
+        saves[activeProfile].score = PlayerPrefs.GetInt("score");
+        Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+        string profName = saves[activeProfile].charname;
+        int score = saves[activeProfile].score;
+        string toChange = "Welcome " + profName + "\nYour score is " + score;
+        thisButton.GetComponentInChildren<Text>().text = toChange;
+    }
+    */
+
 }
