@@ -2244,6 +2244,17 @@ PrefabInstance:
       propertyPath: nextLevel
       value: Level2
       objectReference: {fileID: 0}
+    - target: {fileID: 8153392829626131267, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: LogField
+      value: 
+      objectReference: {fileID: 8153392829680282403}
     m_RemovedComponents:
     - {fileID: 8153392828299869615, guid: 5786518e9148c0546ab64a621647b6ef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5786518e9148c0546ab64a621647b6ef, type: 3}
+--- !u!1 &8153392829680282403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8153392828474530584, guid: 5786518e9148c0546ab64a621647b6ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 8153392829680282402}
+  m_PrefabAsset: {fileID: 0}
