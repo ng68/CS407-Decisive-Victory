@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
+    private double highestAlly = 0;
     private GameObject winScreen;
     private GameObject loseScreen;
     private GameObject[] allyUnits;
@@ -30,11 +31,16 @@ public class GameHandler : MonoBehaviour
 
             allyUnits = GameObject.FindGameObjectsWithTag("Ally");
             enemyUnits = GameObject.FindGameObjectsWithTag("Enemy");
-
+            double currentallies = 0;
             foreach (GameObject go in allyUnits) {
                 if (go.activeSelf) {
                     allyDeadCheck = false;
+                    currentallies++;
                 }
+            }
+            if (currentallies > highestAlly)
+            {
+                highestAlly = currentallies;
             }
 
             foreach (GameObject go in enemyUnits) {
@@ -58,7 +64,12 @@ public class GameHandler : MonoBehaviour
                 if (!takeTime) {
                     Time.timeScale = 0.0f;
                     winScreen.SetActive(true);
-                }else {
+                    double finalscore = (currentallies / highestAlly) * 10;
+                    string toChange = "Your Score: " + finalscore + "\n";
+                    GameObject.Find("ScoreText").GetComponentInChildren<Text>().text = toChange;
+
+                }
+                else {
                     StartCoroutine(DelayTime());
                 }   
             }  
