@@ -22,7 +22,12 @@ public class GameUI : MonoBehaviour
     [Header("Pause Dialogs")]
     [SerializeField] private GameObject pauseDialog;
     [SerializeField] private GameObject startButton;
+    [SerializeField] private GameObject settingsButton;
     [SerializeField] private GameObject pauseButton;
+    [Space(10)]
+    [Header("Settings Dialogs")]
+    [SerializeField] private GameObject settingsDialog;
+    [SerializeField] private GameObject back2Button;
     #endregion
 
     #region Canvas
@@ -40,6 +45,7 @@ public class GameUI : MonoBehaviour
     #region Initialisation - Button Selection & Menu Order
     private void Start()
     {
+        gameStarted = false;
         if (PlayerPrefs.HasKey("username"))
         {
 
@@ -69,8 +75,9 @@ public class GameUI : MonoBehaviour
         {
             if (gameStarted == true)
                 Time.timeScale = 1.0f;
-            else
+            else if (gameStarted == false) {
                 startButton.SetActive(true);
+            }
             pauseDialog.SetActive(false);
             LogText.GetComponent<Text>().text += '\n' + "Game Resumed!";
             pauseButton.SetActive(true);
@@ -92,6 +99,21 @@ public class GameUI : MonoBehaviour
         if (buttonType == "Retry")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        // Pause Menu Game Settings.
+        if (buttonType == "Settings")
+        {
+            // Enter Game Settings
+            LogText.GetComponent<Text>().text += '\n' + "Game Settings!";
+            pauseDialog.SetActive(false);
+            settingsDialog.SetActive(true);
+        }
+        if(buttonType == "Back2")
+        {
+            LogText.GetComponent<Text>().text += '\n' + "Back to Pause Menu!";
+            settingsDialog.SetActive(false);
+            pauseDialog.SetActive(true);
         }
     }
 
