@@ -15,7 +15,7 @@ public class Currency : MonoBehaviour
     {
         gold = startingGold;
         UIController = GameObject.Find("UIController");
-        currencyText = UIController.GetComponent<GameUI>().getCurrency();
+        currencyText = UIController.GetComponent<GameUI>().GetCurrency();
     }
 
     // Update is called once per frame
@@ -33,6 +33,5 @@ public class Currency : MonoBehaviour
             gold = (uint)newGold;
             return newGold;
         }
-        return -2;
     }
 }

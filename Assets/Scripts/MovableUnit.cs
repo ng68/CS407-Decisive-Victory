@@ -24,12 +24,16 @@ public class MovableUnit : MonoBehaviour
     private Text priceText;
     //for holding a ref to the healthbar the unit has
     private GameObject healthBar;
+    //for holding a ref to the UI text log
+    private GameObject textLog;
     //for money interactions
     private bool isPurchasable = false;
     private bool isSellable = false;
     public int price = 0;
 
     void Start(){
+        GameObject temp = GameObject.Find("UIController");
+        textLog = temp.GetComponent<GameUI>().GetTextLog();
         priceText = null;
         priceTextBox = null;
         Transform trans = this.transform;
@@ -70,8 +74,8 @@ public class MovableUnit : MonoBehaviour
             this.isPurchasable = false;
             this.isSellable = false;
             //Yes this next line causes an error if the "priceText" doesn't exist, however that does not break the game functioning at all.
-            healthBar.active = true;
-            priceTextBox.active = false;
+            healthBar.SetActive(true);
+            priceTextBox.SetActive(false);
 		}else if(this.tag == "Ally"){
             //sets the "to sell position", only matters for units we can buy/sell
             sellPosX = this.transform.localPosition.x;
@@ -80,8 +84,8 @@ public class MovableUnit : MonoBehaviour
             this.isPurchasable = true;
             this.isSellable = false;
             this.isMovable = true;
-            healthBar.active = false;
-            priceTextBox.active = true;
+            healthBar.SetActive(false);
+            priceTextBox.SetActive(true);
 		}else{
 			this.isMovable = false;
 		}
@@ -94,8 +98,12 @@ public class MovableUnit : MonoBehaviour
     		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
     		this.gameObject.transform.localPosition = new Vector3(mousePos.x - tempPosX, mousePos.y - tempPosY, 0);
     	}
-        if(isPurchasable == true && Time.timeScale != 0 ){
-            gameObject.active = false;            
+        if(Time.timeScale != 0){
+            if(isPurchasable == true){
+                gameObject.SetActive(false);            
+            }else{
+                this.isMovable = false;
+            }
         }
     }
     //might be needed to detect victory conditions
@@ -139,12 +147,14 @@ public class MovableUnit : MonoBehaviour
                         isPurchasable = false;
                         isSellable = true;
                         this.gameObject.transform.localPosition = snapPos;
-                        priceTextBox.active = false;
-                        healthBar.active = true;
+                        textLog.GetComponent<Text>().text += '\n' + "Purchased " + this.gameObject.GetComponent<Units>().type + "! You lost " + this.price + " gold.";
+                        priceTextBox.SetActive(false);
+                        healthBar.SetActive(true);
                     }
                     else{
                         //we don't have enough money to buy the object
                         this.gameObject.transform.localPosition = new Vector3(ogPosX, ogPosY, 0);
+                        textLog.GetComponent<Text>().text += '\n' + "You don't have enough money to purchase " + this.gameObject.GetComponent<Units>().type;
                     }
                 }else{
                     //We already purchased it but are rearranging it on screen
@@ -158,10 +168,11 @@ public class MovableUnit : MonoBehaviour
                     gameHandler.GetComponent<Currency>().changeGold(newPrice);
                     //now we need to place the gameObject back where it came from...
                     this.gameObject.transform.localPosition = new Vector3(sellPosX, sellPosY, 0);
+                    textLog.GetComponent<Text>().text += '\n' + "Sold " + this.gameObject.GetComponent<Units>().type + "! You obtained " + this.price + " gold.";
                     isSellable = false;
                     isPurchasable = true;
-                    priceTextBox.active = true;
-                    healthBar.active = false;
+                    priceTextBox.SetActive(true);
+                    healthBar.SetActive(false);
                 }else{
                     this.gameObject.transform.localPosition = new Vector3(ogPosX, ogPosY, 0);
                 }
