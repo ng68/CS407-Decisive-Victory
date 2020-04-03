@@ -114,6 +114,12 @@ public class GameUI : MonoBehaviour
             settingsDialog.SetActive(false);
             pauseDialog.SetActive(true);
         }
+        if(buttonType == "next")
+        {
+            Time.timeScale = 0.0f;
+            Debug.Log(nextLevel);
+            SceneManager.LoadScene(nextLevel);
+        }
     }
 
     private void ClickSound()
