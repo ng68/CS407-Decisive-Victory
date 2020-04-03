@@ -2149,6 +2149,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -100
       objectReference: {fileID: 0}
+    - target: {fileID: 8153392829518095873, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 56248417}
+    - target: {fileID: 8153392829518095873, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MouseClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8153392829518095873, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: next
+      objectReference: {fileID: 0}
     - target: {fileID: 8153392829626131265, guid: 5786518e9148c0546ab64a621647b6ef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2224,6 +2239,11 @@ PrefabInstance:
       propertyPath: settingsButton
       value: 
       objectReference: {fileID: 1604570038}
+    - target: {fileID: 8153392829626131267, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: nextLevel
+      value: Level2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8153392828299869615, guid: 5786518e9148c0546ab64a621647b6ef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5786518e9148c0546ab64a621647b6ef, type: 3}
