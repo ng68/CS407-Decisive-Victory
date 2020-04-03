@@ -20,7 +20,9 @@ public abstract class Units : MonoBehaviour
     
     [HideInInspector]
     public float maxHealth;
+    [HideInInspector]
     public GameObject LogText;
+    [HideInInspector]
     public string type = "Empty";
 
     private SpriteRenderer mySpriteRenderer;
