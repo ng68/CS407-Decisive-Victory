@@ -172,5 +172,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8329c20d1dfd6ac4c98268326f87a81b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIController: {fileID: 8153392829626131266, guid: 5786518e9148c0546ab64a621647b6ef,
-    type: 3}
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}

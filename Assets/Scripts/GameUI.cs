@@ -100,12 +100,8 @@ public class GameUI : MonoBehaviour
         GetComponent<AudioSource>().Play();
     }
 
-    public GameObject GetCurrency(){
+    public GameObject getCurrency(){
     	return Currency;
-    }
-
-    public GameObject GetTextLog(){
-        return LogText;
     }
 }
 

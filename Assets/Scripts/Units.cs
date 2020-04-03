@@ -20,10 +20,7 @@ public abstract class Units : MonoBehaviour
     
     [HideInInspector]
     public float maxHealth;
-    [HideInInspector]
     public GameObject LogText;
-    [HideInInspector]
-    public string type = "Empty";
 
     private SpriteRenderer mySpriteRenderer;
     private Animator animator;
@@ -57,7 +54,7 @@ public abstract class Units : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    public virtual void Start()
+    void Start()
     {
         maxHealth = health;
         LogText = GameObject.Find("/UIController/Log_Canvas/GameLog_Canvas/Log Field/Log Text");
@@ -81,7 +78,7 @@ public abstract class Units : MonoBehaviour
         
     }
 
-    public virtual void LoseHealth(GameObject attacker, string attackerType, float damage, bool typeMagical)
+    public virtual void LoseHealth(GameObject attacker, float damage, bool typeMagical)
     {
         float dmgTaken;
         if (typeMagical) {
@@ -134,7 +131,7 @@ public abstract class Units : MonoBehaviour
         }
 
         animator.SetInteger("state", 2);
-        targetScript.LoseHealth(gameObject, type, attack, magical);
+        targetScript.LoseHealth(gameObject, attack, magical);
     }
 
     public virtual void Move()
