@@ -52,8 +52,7 @@ public class GameUI : MonoBehaviour
         }
         else
         {
-            PlayerPrefs.SetString("userName", "Luna");
-            PlayerPrefs.SetInt("levels", 3);
+
         }
 
     }
