@@ -15,9 +15,7 @@ public class GameHandler : MonoBehaviour
     private bool enemyDeadCheck;
     private bool gameEnd = false;
     private bool takeTime = true;
-    public static int activeProfile;
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -65,14 +63,15 @@ public class GameHandler : MonoBehaviour
             if (enemyDeadCheck) {
                 //gameEnd = true;
                 if (!takeTime) {
-                    Time.timeScale = 0.0f;
                     winScreen.SetActive(true);
                     double finalscore = (currentallies / highestAlly) * 10;
 
                     int finalstring = Convert.ToInt32(finalscore);
-                    string toChange = "Your Score: " + finalstring;                    
+                    string toChange = "Your Score: " + finalstring;
                     GameObject.Find("ScoreText").GetComponentInChildren<Text>().text = toChange;
                     PlayerPrefs.SetInt("score", finalstring);
+
+
                 }
                 else {
                     StartCoroutine(DelayTime());
