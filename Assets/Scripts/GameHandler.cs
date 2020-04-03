@@ -65,6 +65,7 @@ public class GameHandler : MonoBehaviour
             if (enemyDeadCheck) {
                 //gameEnd = true;
                 if (!takeTime) {
+                    Time.timeScale = 0.0f;
                     winScreen.SetActive(true);
                     double finalscore = (currentallies / highestAlly) * 10;
 
