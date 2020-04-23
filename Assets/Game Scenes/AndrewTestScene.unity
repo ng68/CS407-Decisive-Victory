@@ -2969,6 +2969,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: e0f37c9f5fbc56e40b5d5725a4b720c5,
         type: 3}
+    - target: {fileID: 8153392828129927877, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8153392828299869613, guid: 5786518e9148c0546ab64a621647b6ef,
         type: 3}
       propertyPath: m_FontData.m_FontSize
