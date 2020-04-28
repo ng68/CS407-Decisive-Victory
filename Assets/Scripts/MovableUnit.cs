@@ -171,6 +171,34 @@ public class MovableUnit : MonoBehaviour
                                   "with half health";
                 uiController.GetComponent<GameUI>().ChangeUnitDescription(unitDescription);
             }
+            if(this.gameObject.GetComponent<Units>().type == "Knight") {
+                unitDescription = "Name: Knight" + '\n' + 
+                                  "Price: 150 Gold" + '\n' +
+                                  "Health: 100" + '\n' +
+                                  "Attack: 3" + '\n' +
+                                  "Attack Speed: 1" + '\n' +
+                                  "Range: 1" + '\n' +
+                                  "Damage Type: Physical" + '\n' +
+                                  "Physical Armor (%): 0.6" + '\n' +
+                                  "Magical Armor (%): 0.6" + '\n' +
+                                  "Move Speed: 0.1" + '\n' +
+                                  "Special Ability: None";
+                uiController.GetComponent<GameUI>().ChangeUnitDescription(unitDescription);
+            }
+            if(this.gameObject.GetComponent<Units>().type == "Mage") {
+                unitDescription = "Name: Mage" + '\n' + 
+                                  "Price: 500 Gold" + '\n' +
+                                  "Health: 100" + '\n' +
+                                  "Attack: 25" + '\n' +
+                                  "Attack Speed: 5" + '\n' +
+                                  "Range: 3" + '\n' +
+                                  "Damage Type: Magical" + '\n' +
+                                  "Physical Armor (%): 0" + '\n' +
+                                  "Magical Armor (%): 0" + '\n' +
+                                  "Move Speed: 0.1" + '\n' +
+                                  "Special Ability: None";
+                uiController.GetComponent<GameUI>().ChangeUnitDescription(unitDescription);
+            }
     		if(check == true){//we dropped the unit in a legal position
                 //check if unit is "to be purchased"
                 if (isPurchasable == true) {
