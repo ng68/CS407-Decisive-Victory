@@ -381,6 +381,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869483549096410910, guid: 588d570a52e35c5458973a7d067a2875,
+        type: 3}
+      propertyPath: attack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869483549096410910, guid: 588d570a52e35c5458973a7d067a2875,
+        type: 3}
+      propertyPath: magicalArmorPercent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869483549096410910, guid: 588d570a52e35c5458973a7d067a2875,
+        type: 3}
+      propertyPath: physicalArmorPercent
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 588d570a52e35c5458973a7d067a2875, type: 3}
 --- !u!1 &311908135
@@ -599,6 +614,10 @@ PrefabInstance:
     - target: {fileID: 1589123261345258, guid: bedfc2489e233ae479eff548012e1c92, type: 3}
       propertyPath: m_Name
       value: mage_dark
+      objectReference: {fileID: 0}
+    - target: {fileID: 1589123261345258, guid: bedfc2489e233ae479eff548012e1c92, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4710395557788888, guid: bedfc2489e233ae479eff548012e1c92, type: 3}
       propertyPath: m_LocalPosition.x
