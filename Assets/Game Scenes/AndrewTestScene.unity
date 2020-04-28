@@ -3215,6 +3215,16 @@ PrefabInstance:
       propertyPath: LogField
       value: 
       objectReference: {fileID: 8153392829680282403}
+    - target: {fileID: 8153392829626131267, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: DescText
+      value: 
+      objectReference: {fileID: 806493181}
+    - target: {fileID: 8153392829626131267, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: DescField
+      value: 
+      objectReference: {fileID: 1907854204}
     m_RemovedComponents:
     - {fileID: 8153392828299869615, guid: 5786518e9148c0546ab64a621647b6ef, type: 3}
     - {fileID: 8153392827730535438, guid: 5786518e9148c0546ab64a621647b6ef, type: 3}

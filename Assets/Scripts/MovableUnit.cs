@@ -141,6 +141,36 @@ public class MovableUnit : MonoBehaviour
     		mousePos = Input.mousePosition;
     		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
     		gameHandler.GetComponent<GridHandler>().GridCheck(mousePos, out snapPos, out check);
+            string unitDescription;
+            if(this.gameObject.GetComponent<Units>().type == "Archer") {
+                unitDescription = "Name: Archer" + '\n' + 
+                                  "Price: 300 Gold" + '\n' +
+                                  "Health: 100" + '\n' +
+                                  "Attack: 10" + '\n' +
+                                  "Attack Speed: 1" + '\n' +
+                                  "Range: 5" + '\n' +
+                                  "Damage Type: Physical" + '\n' +
+                                  "Physical Armor (%): 0" + '\n' +
+                                  "Magical Armor (%): 0" + '\n' +
+                                  "Move Speed: 0.1" + '\n' +
+                                  "Special Ability: None";
+                uiController.GetComponent<GameUI>().ChangeUnitDescription(unitDescription);
+            }
+            if(this.gameObject.GetComponent<Units>().type == "Zombie") {
+                unitDescription = "Name: Zombie" + '\n' + 
+                                  "Price: 200 Gold" + '\n' +
+                                  "Health: 100" + '\n' +
+                                  "Attack: 4" + '\n' +
+                                  "Attack Speed: 0.2" + '\n' +
+                                  "Range: 1" + '\n' +
+                                  "Damage Type: Magical" + '\n' +
+                                  "Physical Armor (%): 0.4" + '\n' +
+                                  "Magical Armor (%): 0.4" + '\n' +
+                                  "Move Speed: 0.1" + '\n' +
+                                  "Special Ability: When this" + '\n' + "unit is killed, it will revive" + '\n' + 
+                                  "with half health";
+                uiController.GetComponent<GameUI>().ChangeUnitDescription(unitDescription);
+            }
     		if(check == true){//we dropped the unit in a legal position
                 //check if unit is "to be purchased"
                 if (isPurchasable == true) {
