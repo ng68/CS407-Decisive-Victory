@@ -38,6 +38,13 @@ public class GameUI : MonoBehaviour
     #endregion
 
     #region Canvas
+    [Header("Description Canvas")]
+    [Space(10)]
+    [SerializeField] private GameObject DescText;
+    [SerializeField] private GameObject DescField;
+    #endregion
+
+    #region Canvas
     [Header("Buy Canvas")]
     [Space(10)]
     [SerializeField] private GameObject Currency;
@@ -67,6 +74,11 @@ public class GameUI : MonoBehaviour
         LogField.GetComponent<ScrollRect>().verticalNormalizedPosition = 0.0f;
         Canvas.ForceUpdateCanvases();
     }
+    public void ChangeUnitDescription(string description) {
+        DescText.GetComponent<Text>().text = "Unit Description:" + '\n' + '\n' + description;
+        Canvas.ForceUpdateCanvases();
+    }
+
 
     public void  MouseClick(string buttonType)
     {

@@ -22,18 +22,20 @@ public class MovableUnit : MonoBehaviour
     //for holding a ref to the textbox the unit has
     private GameObject priceTextBox;
     private Text priceText;
+    //for holding a ref to the UIController instead
+    private GameObject uiController;
     //for holding a ref to the healthbar the unit has
     private GameObject healthBar;
     //for holding a ref to the UI text log
-    private GameObject textLog;
+    //private GameObject textLog;
     //for money interactions
     private bool isPurchasable = false;
     private bool isSellable = false;
     public int price = 0;
 
     void Start(){
-        GameObject temp = GameObject.Find("UIController");
-        textLog = temp.GetComponent<GameUI>().GetTextLog();
+        uiController = GameObject.Find("UIController");
+        //textLog = uiController.GetComponent<GameUI>().GetTextLog();
         priceText = null;
         priceTextBox = null;
         Transform trans = this.transform;
@@ -139,6 +141,64 @@ public class MovableUnit : MonoBehaviour
     		mousePos = Input.mousePosition;
     		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
     		gameHandler.GetComponent<GridHandler>().GridCheck(mousePos, out snapPos, out check);
+            string unitDescription;
+            if(this.gameObject.GetComponent<Units>().type == "Archer") {
+                unitDescription = "Name: Archer" + '\n' + 
+                                  "Price: 300 Gold" + '\n' +
+                                  "Health: 100" + '\n' +
+                                  "Attack: 10" + '\n' +
+                                  "Attack Speed: 1" + '\n' +
+                                  "Range: 5" + '\n' +
+                                  "Damage Type: Physical" + '\n' +
+                                  "Physical Armor (%): 0" + '\n' +
+                                  "Magical Armor (%): 0" + '\n' +
+                                  "Move Speed: 0.1" + '\n' +
+                                  "Special Ability: None";
+                uiController.GetComponent<GameUI>().ChangeUnitDescription(unitDescription);
+            }
+            if(this.gameObject.GetComponent<Units>().type == "Zombie") {
+                unitDescription = "Name: Zombie" + '\n' + 
+                                  "Price: 200 Gold" + '\n' +
+                                  "Health: 100" + '\n' +
+                                  "Attack: 4" + '\n' +
+                                  "Attack Speed: 0.2" + '\n' +
+                                  "Range: 1" + '\n' +
+                                  "Damage Type: Magical" + '\n' +
+                                  "Physical Armor (%): 0.4" + '\n' +
+                                  "Magical Armor (%): 0.4" + '\n' +
+                                  "Move Speed: 0.1" + '\n' +
+                                  "Special Ability: When this" + '\n' + "unit is killed, it will revive" + '\n' + 
+                                  "with half health";
+                uiController.GetComponent<GameUI>().ChangeUnitDescription(unitDescription);
+            }
+            if(this.gameObject.GetComponent<Units>().type == "Knight") {
+                unitDescription = "Name: Knight" + '\n' + 
+                                  "Price: 150 Gold" + '\n' +
+                                  "Health: 100" + '\n' +
+                                  "Attack: 3" + '\n' +
+                                  "Attack Speed: 1" + '\n' +
+                                  "Range: 1" + '\n' +
+                                  "Damage Type: Physical" + '\n' +
+                                  "Physical Armor (%): 0.6" + '\n' +
+                                  "Magical Armor (%): 0.6" + '\n' +
+                                  "Move Speed: 0.1" + '\n' +
+                                  "Special Ability: None";
+                uiController.GetComponent<GameUI>().ChangeUnitDescription(unitDescription);
+            }
+            if(this.gameObject.GetComponent<Units>().type == "Mage") {
+                unitDescription = "Name: Mage" + '\n' + 
+                                  "Price: 500 Gold" + '\n' +
+                                  "Health: 100" + '\n' +
+                                  "Attack: 25" + '\n' +
+                                  "Attack Speed: 5" + '\n' +
+                                  "Range: 3" + '\n' +
+                                  "Damage Type: Magical" + '\n' +
+                                  "Physical Armor (%): 0" + '\n' +
+                                  "Magical Armor (%): 0" + '\n' +
+                                  "Move Speed: 0.1" + '\n' +
+                                  "Special Ability: None";
+                uiController.GetComponent<GameUI>().ChangeUnitDescription(unitDescription);
+            }
     		if(check == true){//we dropped the unit in a legal position
                 //check if unit is "to be purchased"
                 if (isPurchasable == true) {
@@ -147,14 +207,16 @@ public class MovableUnit : MonoBehaviour
                         isPurchasable = false;
                         isSellable = true;
                         this.gameObject.transform.localPosition = snapPos;
-                        textLog.GetComponent<Text>().text += '\n' + "Purchased " + this.gameObject.GetComponent<Units>().type + "! You lost " + this.price + " gold.";
+                        string temp = "Purchased " + this.gameObject.GetComponent<Units>().type + "! You lost " + this.price + " gold.";
+                        uiController.GetComponent<GameUI>().AppendLog(temp);
                         priceTextBox.SetActive(false);
                         healthBar.SetActive(true);
                     }
                     else{
                         //we don't have enough money to buy the object
                         this.gameObject.transform.localPosition = new Vector3(ogPosX, ogPosY, 0);
-                        textLog.GetComponent<Text>().text += '\n' + "You don't have enough money to purchase " + this.gameObject.GetComponent<Units>().type;
+                        string temp = "You don't have enough money to purchase " + this.gameObject.GetComponent<Units>().type;
+                        uiController.GetComponent<GameUI>().AppendLog(temp);
                     }
                 }else{
                     //We already purchased it but are rearranging it on screen
@@ -168,7 +230,9 @@ public class MovableUnit : MonoBehaviour
                     gameHandler.GetComponent<Currency>().changeGold(newPrice);
                     //now we need to place the gameObject back where it came from...
                     this.gameObject.transform.localPosition = new Vector3(sellPosX, sellPosY, 0);
-                    textLog.GetComponent<Text>().text += '\n' + "Sold " + this.gameObject.GetComponent<Units>().type + "! You obtained " + this.price + " gold.";
+                    string temp = "Sold " + this.gameObject.GetComponent<Units>().type + "! You obtained " + this.price + " gold.";
+                    uiController.GetComponent<GameUI>().AppendLog(temp);
+                    //textLog.GetComponent<Text>().text += '\n' + "Sold " + this.gameObject.GetComponent<Units>().type + "! You obtained " + this.price + " gold.";
                     isSellable = false;
                     isPurchasable = true;
                     priceTextBox.SetActive(true);
