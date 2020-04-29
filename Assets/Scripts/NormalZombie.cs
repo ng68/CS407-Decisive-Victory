@@ -10,6 +10,7 @@ public class NormalZombie : Units
     
     override public void Start(){
         type = "Zombie";
+        specialAbility = "If this unit dies, it revives with half health and reduced stats";
         base.Start();
     }
 

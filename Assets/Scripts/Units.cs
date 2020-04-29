@@ -17,7 +17,8 @@ public abstract class Units : MonoBehaviour
     public float moveTime = 0.2f;
     public Image healthBar;
     
-    
+    [HideInInspector]
+    public string specialAbility = "None";
     [HideInInspector]
     public float maxHealth;
     [HideInInspector]

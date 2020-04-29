@@ -166,7 +166,11 @@ MonoBehaviour:
   magicalArmorPercent: 0.4
   moveTime: 0.1
   healthBar: {fileID: 2605664386747559673}
+  specialAbility: If this unit is killed, \n it will revive with half its health
+    and reduced stats.
   maxHealth: 0
+  LogText: {fileID: 0}
+  type: Empty
 --- !u!1 &494453130528189772
 GameObject:
   m_ObjectHideFlags: 0
