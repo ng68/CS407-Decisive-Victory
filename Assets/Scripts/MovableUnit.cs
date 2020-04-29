@@ -29,6 +29,7 @@ public class MovableUnit : MonoBehaviour
     //for holding a ref to the UI text log
     //private GameObject textLog;
     //for money interactions
+    public bool multiplePurchasable = false;
     private bool isPurchasable = false;
     private bool isSellable = false;
     public int price = 0;
@@ -210,6 +211,14 @@ public class MovableUnit : MonoBehaviour
                 //check if unit is "to be purchased"
                 if (isPurchasable == true) {
                     if (gameHandler.GetComponent<Currency>().changeGold(price) >= 0){
+                        if(multiplePurchasable){
+                            //make a new one at the buy location 
+                            GameObject copy;
+                            copy = Instantiate(this.gameObject);
+                            copy.gameObject.transform.localPosition = new Vector3(sellPosX, sellPosY, 0);
+                            //IF multiple purchasing is suspect of messing up, then I believe I should take more time here to check the values of the new object
+                            //however through testing this appears to work.
+                        }
                         //we have enough money to buy the object
                         isPurchasable = false;
                         isSellable = true;
@@ -233,17 +242,24 @@ public class MovableUnit : MonoBehaviour
     			//if we dropped the unit in an illegal position
                 //check if its sellable
                 if(isSellable == true){
+
                     int newPrice = price * -1;//invert price
                     gameHandler.GetComponent<Currency>().changeGold(newPrice);
                     //now we need to place the gameObject back where it came from...
                     this.gameObject.transform.localPosition = new Vector3(sellPosX, sellPosY, 0);
                     string temp = "Sold " + this.gameObject.GetComponent<Units>().type + "! You obtained " + this.price + " gold.";
                     uiController.GetComponent<GameUI>().AppendLog(temp);
+                    if(multiplePurchasable){
+                        //just "delete" this one
+                        transform.gameObject.SetActive(false); //this way actually works
+                    }//else{ okay I dont think I need this. So to make sure this code gets ran...
+                        isSellable = false;
+                        isPurchasable = true;
+                        priceTextBox.SetActive(true);
+                        healthBar.SetActive(false);
+                    //}
                     //textLog.GetComponent<Text>().text += '\n' + "Sold " + this.gameObject.GetComponent<Units>().type + "! You obtained " + this.price + " gold.";
-                    isSellable = false;
-                    isPurchasable = true;
-                    priceTextBox.SetActive(true);
-                    healthBar.SetActive(false);
+
                 }else{
                     this.gameObject.transform.localPosition = new Vector3(ogPosX, ogPosY, 0);
                 }
