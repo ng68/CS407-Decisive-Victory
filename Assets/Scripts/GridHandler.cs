@@ -68,4 +68,8 @@ public class GridHandler : MonoBehaviour
 		Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
 		return worldPosition;
 	}
+	
+	/*public override string ToString(){
+		return value.ToString();
+	}*/
 }
