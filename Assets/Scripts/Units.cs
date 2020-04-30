@@ -27,15 +27,21 @@ public abstract class Units : MonoBehaviour
     public GameObject LogText;
     [HideInInspector]
     public string type = "Empty";
+    [HideInInspector]
+    public GameObject target;
+    [HideInInspector]
+    public bool facingRight = true;
+    [HideInInspector]
+    public SpriteRenderer mySpriteRenderer;
+    [HideInInspector]
+    public Animator animator;
+    [HideInInspector]
+    public Units targetScript;
 
-    private SpriteRenderer mySpriteRenderer;
-    private Animator animator;
-    private GameObject target;
+    
     private GameObject[] oppUnits;
-    private Units targetScript;
     private bool takeTime = true;
     private float speed = 100.0f;
-    private bool facingRight = true;
     private bool attackingPause = false;
     private bool movePause = false;
 
