@@ -35,6 +35,8 @@ public abstract class Units : MonoBehaviour
     public Animator animator;
     [HideInInspector]
     public Units targetScript;
+    [HideInInspector]
+    public bool slowed;
 
     
     private GameObject[] oppUnits;
@@ -66,6 +68,7 @@ public abstract class Units : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        slowed = false;
         maxHealth = health;
         LogText = GameObject.Find("/UIController/Log_Canvas/GameLog_Canvas/Log Field/Log Text");
         StartCoroutine(PauseTime());
@@ -165,7 +168,11 @@ public abstract class Units : MonoBehaviour
     void AttemptAction ()
     {
         //If in range to attack
-        if (Mathf.Abs(target.transform.position.x - transform.position.x) <= range*5 && Mathf.Abs(target.transform.position.y - transform.position.y) <= range*5)
+        
+        float xDif = Mathf.Abs(target.transform.position.x - transform.position.x);
+        float yDif = Mathf.Abs(target.transform.position.y - transform.position.y);
+        float hypotenuse = Mathf.Sqrt((xDif*xDif) + (yDif*yDif));
+        if (hypotenuse <= range*5)
         {
             if (!attackingPause) {
                 Attack();
@@ -183,7 +190,11 @@ public abstract class Units : MonoBehaviour
     IEnumerator MoveTime()
     {
         takeTime = true;
-        yield return new WaitForSeconds(moveTime);
+        if (slowed) {
+             yield return new WaitForSeconds(moveTime*1.5f);
+        }else {
+             yield return new WaitForSeconds(moveTime);
+        }
         takeTime = false;
     }
 

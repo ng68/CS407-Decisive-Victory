@@ -159,8 +159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 75
-  attack: 10
-  attackSpeed: 2
+  attack: 15
+  attackSpeed: 3
   range: 8
   magical: 1
   physicalArmorPercent: 0
@@ -176,6 +176,7 @@ MonoBehaviour:
   mySpriteRenderer: {fileID: 0}
   animator: {fileID: 0}
   targetScript: {fileID: 0}
+  slowed: 0
 --- !u!1 &1712624109537428019
 GameObject:
   m_ObjectHideFlags: 0

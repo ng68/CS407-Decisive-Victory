@@ -11,4 +11,9 @@ public class FrostMage : Units
 		specialAbility = "Slows target's movement speed.";
 		base.Start();
 	}
+
+    override public void Attack() {
+        targetScript.slowed = true;
+        base.Attack();
+    }
 }

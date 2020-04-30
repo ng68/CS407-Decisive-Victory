@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  attack: 2
+  attack: 1.5
   attackSpeed: 0.1
   range: 1
   magical: 0
@@ -177,6 +177,7 @@ MonoBehaviour:
   mySpriteRenderer: {fileID: 0}
   animator: {fileID: 0}
   targetScript: {fileID: 0}
+  slowed: 0
 --- !u!1 &494453130528189772
 GameObject:
   m_ObjectHideFlags: 0
