@@ -29,12 +29,13 @@ public class MovableUnit : MonoBehaviour
     //for holding a ref to the UI text log
     //private GameObject textLog;
     //for money interactions
-    public bool multiplePurchasable = false;
+    public bool multiplePurchasable = true;
     private bool isPurchasable = false;
     private bool isSellable = false;
     public int price = 0;
 
     void Start(){
+        multiplePurchasable = true;
         uiController = GameObject.Find("UIController");
         //textLog = uiController.GetComponent<GameUI>().GetTextLog();
         priceText = null;
