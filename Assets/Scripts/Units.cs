@@ -16,6 +16,8 @@ public abstract class Units : MonoBehaviour
     //public Button startButton;
     public float moveTime = 0.2f;
     public Image healthBar;
+    public AudioClip attackSound;
+    public AudioClip deathSound;
     
     [HideInInspector]
     public string specialAbility = "None";
@@ -97,6 +99,11 @@ public abstract class Units : MonoBehaviour
         //Debug.Log(attacker.name + " is attacking " + gameObject.name + " for " + dmgTaken + " damage!");
         if (health <= 0)
         {
+            GameObject effectAudio = GameObject.Find("EffectsSource");
+            AudioSource audio = effectAudio.GetComponent<AudioSource>();
+            audio.clip = deathSound;
+            audio.enabled = true;
+            audio.Play();
             //transform.gameObject.tag = "Dead";
             //Play death animation
             LogText.GetComponent<Text>().text += '\n' + gameObject.name + " was killed by " + attacker.name;
@@ -124,6 +131,10 @@ public abstract class Units : MonoBehaviour
     public virtual void Attack()
     {
         Vector3 check = target.transform.position;
+        AudioSource audio = gameObject.GetComponent<AudioSource>();
+        audio.clip = attackSound;
+        audio.enabled = true;
+        audio.Play();
         if (check.x < transform.position.x && facingRight) {
             mySpriteRenderer.flipX = !mySpriteRenderer.flipX;
             facingRight = false;

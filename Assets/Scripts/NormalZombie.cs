@@ -35,6 +35,11 @@ public class NormalZombie : Units
             if (died || zombieSlayer) {
                 //transform.gameObject.tag = "Dead";
                 //Play death animation
+                GameObject effectAudio = GameObject.Find("EffectsSource");
+                AudioSource audio = effectAudio.GetComponent<AudioSource>();
+                audio.clip = deathSound;
+                audio.enabled = true;
+                audio.Play();
                 if (zombieSlayer) {
                     LogText.GetComponent<Text>().text += '\n' + "Zombieslayer debuff prevented " + gameObject.name + " from reviving";
                 }
