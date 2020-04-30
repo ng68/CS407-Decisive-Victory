@@ -151,8 +151,7 @@ public class MovableUnit : MonoBehaviour
             }else {
                 damageType = "Physical";
             }
-            unitDescription = "Name: " + unitScript.type + '\n' + 
-                                "Price: " + price + '\n' +
+            unitDescription = "Name: " + unitScript.type + '\n' +
                                 "Health: " + unitScript.health + '\n' +
                                 "Attack: " + unitScript.attack + '\n' +
                                 "Attack Speed: " + unitScript.attackSpeed + '\n' +
