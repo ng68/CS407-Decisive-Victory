@@ -31,6 +31,11 @@ public class NormalZombie : Units
             if (died) {
                 //transform.gameObject.tag = "Dead";
                 //Play death animation
+                GameObject effectAudio = GameObject.Find("EffectsSource");
+                AudioSource audio = effectAudio.GetComponent<AudioSource>();
+                audio.clip = deathSound;
+                audio.enabled = true;
+                audio.Play();
                 LogText.GetComponent<Text>().text += '\n' + gameObject.name + " was killed by " + attacker.name;
                 transform.gameObject.SetActive(false);
             }else {
