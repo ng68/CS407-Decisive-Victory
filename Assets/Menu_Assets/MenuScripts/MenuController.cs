@@ -8,6 +8,8 @@ using System;
 
 public class MenuController : MonoBehaviour
 {
+    int defer_update = 0;
+
     #region Default Values
     [Header("Default Menu Values")]
     [SerializeField] private float defaultBrightness;
@@ -147,7 +149,7 @@ public class MenuController : MonoBehaviour
     private void Update()
     {
         
-        if (leaderboardCanvas.activeSelf)
+        if (leaderboardCanvas.activeSelf&&defer_update==0)
         {
             for (int i = 0; i < 2; i++)
             {
@@ -347,6 +349,81 @@ public class MenuController : MonoBehaviour
             Globals.currUser = Globals.saves[0].charname;
             Debug.Log("Current global user = " + Globals.currUser);
             GoBackToMainMenu();
+        }
+        if (buttonType == "D1")
+        {
+            defer_update = 1;
+            Globals.saves[2] = Globals.saves[1];
+            Globals.saves[1] = Globals.saves[0];
+            Globals.currUser = "None";
+            Globals.saves[0].charname = "None";
+            Globals.saves[0].sumofScores = -1;
+            for(int i = 0; i < 10; i++)
+            {
+                Globals.saves[0].scores[i] = 0;
+            }
+            
+            Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
+            Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
+            Button butt3 = GameObject.Find("Player_3").GetComponent<Button>();
+
+            string b1Text = Globals.saves[2].charname + "               " + Globals.saves[2].sumofScores + "\n";
+            string b2Text = Globals.saves[1].charname + "               " + Globals.saves[1].sumofScores + "\n";
+            string b3Text = Globals.saves[0].charname + "               " + Globals.saves[0].sumofScores + "\n";
+
+            butt1.GetComponentInChildren<Text>().text = b1Text;
+            butt2.GetComponentInChildren<Text>().text = b2Text;
+            butt3.GetComponentInChildren<Text>().text = b3Text;
+            defer_update = 0;
+        }
+        if (buttonType == "D2")
+        {
+            defer_update = 1;
+            Globals.saves[1] = Globals.saves[0];
+            Globals.currUser = "None";
+                Globals.saves[0].charname = "None";
+                Globals.saves[0].sumofScores = -1;
+                for (int i = 0; i < 10; i++)
+                {
+                    Globals.saves[0].scores[i] = 0;
+                }
+                Array.Sort(Globals.saves);
+            Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
+            Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
+            Button butt3 = GameObject.Find("Player_3").GetComponent<Button>();
+
+            string b1Text = Globals.saves[2].charname + "               " + Globals.saves[2].sumofScores + "\n";
+            string b2Text = Globals.saves[1].charname + "               " + Globals.saves[1].sumofScores + "\n";
+            string b3Text = Globals.saves[0].charname + "               " + Globals.saves[0].sumofScores + "\n";
+
+            butt1.GetComponentInChildren<Text>().text = b1Text;
+            butt2.GetComponentInChildren<Text>().text = b2Text;
+            butt3.GetComponentInChildren<Text>().text = b3Text;
+            defer_update = 0;
+        }
+        if (buttonType == "D3")
+        {
+            defer_update = 1;
+            Globals.currUser = "None";
+            Globals.saves[0].charname = "None";
+            Globals.saves[0].sumofScores = -1;
+            for (int i = 0; i < 10; i++)
+            {
+                Globals.saves[0].scores[i] = 0;
+            }
+            Array.Sort(Globals.saves);
+            Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
+            Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
+            Button butt3 = GameObject.Find("Player_3").GetComponent<Button>();
+
+            string b1Text = Globals.saves[2].charname + "               " + Globals.saves[2].sumofScores + "\n";
+            string b2Text = Globals.saves[1].charname + "               " + Globals.saves[1].sumofScores + "\n";
+            string b3Text = Globals.saves[0].charname + "               " + Globals.saves[0].sumofScores + "\n";
+
+            butt1.GetComponentInChildren<Text>().text = b1Text;
+            butt2.GetComponentInChildren<Text>().text = b2Text;
+            butt3.GetComponentInChildren<Text>().text = b3Text;
+            defer_update = 0;
         }
         if (buttonType == "L1")
         {
