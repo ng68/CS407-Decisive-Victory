@@ -159,14 +159,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  attack: 1.5
-  attackSpeed: 0.1
+  attack: 15
+  attackSpeed: 1
   range: 1
   magical: 0
   physicalArmorPercent: 0.25
   magicalArmorPercent: 0.25
   moveTime: 0.1
   healthBar: {fileID: 2605664386747559673}
+  attackSound: {fileID: 0}
+  deathSound: {fileID: 0}
   specialAbility: If this unit is killed, \n it will revive with half its health
     and reduced stats.
   maxHealth: 0

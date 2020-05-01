@@ -38,9 +38,11 @@ public abstract class Units : MonoBehaviour
     [HideInInspector]
     public Units targetScript;
     [HideInInspector]
-    public bool slowed;
+    public bool slowed = false;
+    [HideInInspector]
+    public bool haste = false;
 
-    
+    private bool stunned = false;
     private GameObject[] oppUnits;
     private bool takeTime = true;
     private float speed = 100.0f;
@@ -70,7 +72,6 @@ public abstract class Units : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        slowed = false;
         maxHealth = health;
         LogText = GameObject.Find("/UIController/Log_Canvas/GameLog_Canvas/Log Field/Log Text");
         StartCoroutine(PauseTime());
@@ -121,7 +122,7 @@ public abstract class Units : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         target = FindClosest();
         if (target == null)
@@ -131,7 +132,7 @@ public abstract class Units : MonoBehaviour
             return;
         }
         targetScript = target.GetComponent<Units>();
-        if (!takeTime)
+        if (!takeTime && !stunned)
         {
             AttemptAction();
         }
@@ -198,14 +199,25 @@ public abstract class Units : MonoBehaviour
         }
     }
 
+    public IEnumerator Stun(float stunTime) {
+        stunned = true;
+        yield return new WaitForSeconds(stunTime);
+        stunned = false;
+    }
+
     IEnumerator MoveTime()
     {
         takeTime = true;
+        float adjMoveTime = moveTime;
         if (slowed) {
-             yield return new WaitForSeconds(moveTime*1.5f);
-        }else {
-             yield return new WaitForSeconds(moveTime);
+             adjMoveTime = adjMoveTime * 1.5f;
+        } 
+        
+        if (haste) {
+            adjMoveTime = adjMoveTime * .5f;
         }
+
+        yield return new WaitForSeconds(adjMoveTime);
         takeTime = false;
     }
 
@@ -219,7 +231,13 @@ public abstract class Units : MonoBehaviour
     IEnumerator AttackTime()
     {
         attackingPause = true;
-        yield return new WaitForSeconds(attackSpeed);
+        float adjAttackSpeed = attackSpeed;
+        
+        if (haste) {
+            adjAttackSpeed = adjAttackSpeed * .5f;
+        }
+
+        yield return new WaitForSeconds(adjAttackSpeed);
         attackingPause = false;
     }
 }

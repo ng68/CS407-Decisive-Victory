@@ -159,14 +159,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 125
-  attack: 1
-  attackSpeed: 0.1
+  attack: 10
+  attackSpeed: 1
   range: 1
   magical: 0
   physicalArmorPercent: 0.25
   magicalArmorPercent: 0.5
   moveTime: 0.1
   healthBar: {fileID: 79157580999859764}
+  attackSound: {fileID: 0}
+  deathSound: {fileID: 0}
   specialAbility: None
   maxHealth: 0
   LogText: {fileID: 0}
