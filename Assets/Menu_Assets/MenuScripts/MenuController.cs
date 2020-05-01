@@ -681,7 +681,7 @@ public class MenuController : MonoBehaviour
     public void GoBackToMainMenu()
     {
         menuDefaultCanvas.SetActive(true);
-
+        levelSelect.SetActive(false);
         leaderboardCanvas.SetActive(false);
         newGameDialog.SetActive(false);
         loadGameDialog.SetActive(false);
