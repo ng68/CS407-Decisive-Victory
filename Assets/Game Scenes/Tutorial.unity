@@ -895,6 +895,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioSource
       objectReference: {fileID: 0}
+    - target: {fileID: 5156871117949823427, guid: 3c1beecb23fb97f4388ae663247d3e8e,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3b82258f9dd834a41add8ffea08d5e80, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c1beecb23fb97f4388ae663247d3e8e, type: 3}
 --- !u!1001 &5175935773188957270
@@ -1350,6 +1355,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8153392829626131264, guid: 5786518e9148c0546ab64a621647b6ef,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7830d9833a4cc554bbeac28a62aa7eed, type: 3}
     - target: {fileID: 8153392829626131265, guid: 5786518e9148c0546ab64a621647b6ef,
         type: 3}
       propertyPath: m_LocalPosition.x
