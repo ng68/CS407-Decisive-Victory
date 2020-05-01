@@ -628,8 +628,8 @@ public class MenuController : MonoBehaviour
     {
         if (ButtonType == "Yes")
         {
-            Globals.currLevel = 1;
-            SceneManager.LoadScene(level);
+            Globals.currLevel = 0;
+            SceneManager.LoadScene(tutorial);
         }
 
         if (ButtonType == "No")

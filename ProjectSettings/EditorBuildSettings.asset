@@ -33,6 +33,12 @@ EditorBuildSettings:
     path: Assets/Game Scenes/Level7.unity
     guid: de173931f45b6420f92200679955af6f
   - enabled: 1
+    path: Assets/Game Scenes/TrainingRoom.unity
+    guid: f635fd083365a95429af2a7fbb4ff251
+  - enabled: 1
+    path: Assets/Game Scenes/Tutorial.unity
+    guid: 51541696df6a86f46bb6936d5a636d8e
+  - enabled: 1
     path: Assets/Game Scenes/Level8.unity
     guid: 189945d24d3934a868eb84cb28a0dadb
   m_configObjects: {}
