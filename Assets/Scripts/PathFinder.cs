@@ -9,7 +9,7 @@ public class PathFinder
 
     public static PathFinder Instance { get; private set; }
 
-    public GameGrid<PathNode> grid;
+    private GameGrid<PathNode> grid;
     private List<PathNode> openblocks;
     private List<PathNode> closedblocks;
 
