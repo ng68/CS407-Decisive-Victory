@@ -77,21 +77,7 @@ public abstract class Units : MonoBehaviour
         StartCoroutine(PauseTime());
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         
-        animator = GetComponent<Animator>();
-        if (transform.gameObject.tag == "Enemy")
-        {
-            //ally = false;
-            oppUnits = GameObject.FindGameObjectsWithTag("Ally");
-        }
-        else if (transform.gameObject.tag == "Ally")
-        {
-            //ally = true;
-            oppUnits = GameObject.FindGameObjectsWithTag("Enemy");
-        }
-        else
-            Debug.Log("Need to assign ally or enemy");
-          
-        
+        animator = GetComponent<Animator>();        
     }
 
     public virtual void LoseHealth(GameObject attacker, string attackerType, float damage, bool typeMagical)
@@ -124,6 +110,19 @@ public abstract class Units : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
+        if (transform.gameObject.tag == "Enemy")
+        {
+            //ally = false;
+            oppUnits = GameObject.FindGameObjectsWithTag("Ally");
+        }
+        else if (transform.gameObject.tag == "Ally")
+        {
+            //ally = true;
+            oppUnits = GameObject.FindGameObjectsWithTag("Enemy");
+        }
+        else
+            Debug.Log("Need to assign ally or enemy");
+            
         target = FindClosest();
         if (target == null)
         {
