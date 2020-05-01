@@ -188,10 +188,10 @@ GameObject:
   - component: {fileID: 8211286658640904086}
   - component: {fileID: 8211286658640904087}
   - component: {fileID: 7993242225318731690}
-  - component: {fileID: 1418615478035616654}
+  - component: {fileID: -2732418751293625986}
   m_Layer: 9
   m_Name: ToxicZombie
-  m_TagString: Ally
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,10 +334,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  attack: 2
-  attackSpeed: 0.1
-  range: 1
-  magical: 0
+  attack: 30
+  attackSpeed: 2
+  range: 15
+  magical: 1
   physicalArmorPercent: 0.25
   magicalArmorPercent: 0.25
   moveTime: 0.1
@@ -353,7 +353,9 @@ MonoBehaviour:
   mySpriteRenderer: {fileID: 0}
   animator: {fileID: 0}
   targetScript: {fileID: 0}
---- !u!82 &1418615478035616654
+  slowed: 0
+  haste: 0
+--- !u!82 &-2732418751293625986
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -365,7 +367,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 82ed43f7fb9d741609e73a9155b33e1d,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 0

@@ -37,8 +37,12 @@ public abstract class Units : MonoBehaviour
     public Animator animator;
     [HideInInspector]
     public Units targetScript;
+    [HideInInspector]
+    public bool slowed = false;
+    [HideInInspector]
+    public bool haste = false;
 
-    
+    private bool stunned = false;
     private GameObject[] oppUnits;
     private bool takeTime = true;
     private float speed = 100.0f;
@@ -118,7 +122,7 @@ public abstract class Units : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         target = FindClosest();
         if (target == null)
@@ -128,7 +132,7 @@ public abstract class Units : MonoBehaviour
             return;
         }
         targetScript = target.GetComponent<Units>();
-        if (!takeTime)
+        if (!takeTime && !stunned)
         {
             AttemptAction();
         }
@@ -176,7 +180,11 @@ public abstract class Units : MonoBehaviour
     void AttemptAction ()
     {
         //If in range to attack
-        if (Mathf.Abs(target.transform.position.x - transform.position.x) <= range*5 && Mathf.Abs(target.transform.position.y - transform.position.y) <= range*5)
+        
+        float xDif = Mathf.Abs(target.transform.position.x - transform.position.x);
+        float yDif = Mathf.Abs(target.transform.position.y - transform.position.y);
+        float hypotenuse = Mathf.Sqrt((xDif*xDif) + (yDif*yDif));
+        if (hypotenuse <= range*5)
         {
             if (!attackingPause) {
                 Attack();
@@ -191,10 +199,25 @@ public abstract class Units : MonoBehaviour
         }
     }
 
+    public IEnumerator Stun(float stunTime) {
+        stunned = true;
+        yield return new WaitForSeconds(stunTime);
+        stunned = false;
+    }
+
     IEnumerator MoveTime()
     {
         takeTime = true;
-        yield return new WaitForSeconds(moveTime);
+        float adjMoveTime = moveTime;
+        if (slowed) {
+             adjMoveTime = adjMoveTime * 1.5f;
+        } 
+        
+        if (haste) {
+            adjMoveTime = adjMoveTime * .5f;
+        }
+
+        yield return new WaitForSeconds(adjMoveTime);
         takeTime = false;
     }
 
@@ -208,7 +231,13 @@ public abstract class Units : MonoBehaviour
     IEnumerator AttackTime()
     {
         attackingPause = true;
-        yield return new WaitForSeconds(attackSpeed);
+        float adjAttackSpeed = attackSpeed;
+        
+        if (haste) {
+            adjAttackSpeed = adjAttackSpeed * .5f;
+        }
+
+        yield return new WaitForSeconds(adjAttackSpeed);
         attackingPause = false;
     }
 }
