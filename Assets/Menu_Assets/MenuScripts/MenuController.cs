@@ -18,6 +18,8 @@ public class MenuController : MonoBehaviour
     [Header("Levels To Load")]
     public string level;
     private string levelToLoad;
+    public string level2;
+
 
     [SerializeField] private int menuNumber;
     #endregion
@@ -32,6 +34,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject controlsMenu;
     [SerializeField] private GameObject confirmationMenu;
     [SerializeField] private GameObject leaderboardCanvas;
+    [SerializeField] private GameObject levelSelect;
     [Space(10)]
     [Header("Menu Popout Dialogs")]
     [SerializeField] private GameObject noSaveDialog;
@@ -185,7 +188,7 @@ public class MenuController : MonoBehaviour
         if (buttonType == "LoadGame")
         {
             menuDefaultCanvas.SetActive(false);
-            loadGameDialog.SetActive(true);
+            levelSelect.SetActive(true);
             menuNumber = 8;
         }
 
@@ -236,6 +239,14 @@ public class MenuController : MonoBehaviour
             PlayerPrefs.SetInt("activeProfile", 0);
             activeProfile = 0;
             GoBackToMainMenu();
+        }
+        if (buttonType == "L1")
+        {
+            SceneManager.LoadScene(level);
+        }
+        if (buttonType == "L2")
+        {
+            SceneManager.LoadScene(level2);
         }
     }
     #endregion
