@@ -37,5 +37,6 @@ public class NormalArcher : Units
 		}
         
 		targetScript.LoseHealth(gameObject, type, adjustedAttack, magical);
+		//StartCoroutine(CatchUp());
 	}
 }

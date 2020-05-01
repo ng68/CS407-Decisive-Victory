@@ -100,9 +100,10 @@ public abstract class Units : MonoBehaviour
             audio.clip = deathSound;
             audio.enabled = true;
             audio.Play();
-            //transform.gameObject.tag = "Dead";
+            
             //Play death animation
             LogText.GetComponent<Text>().text += '\n' + gameObject.name + " was killed by " + attacker.name;
+            //transform.gameObject.tag = "Dead";
             transform.gameObject.SetActive(false);
         }
     }
@@ -122,7 +123,7 @@ public abstract class Units : MonoBehaviour
         }
         else
             Debug.Log("Need to assign ally or enemy");
-            
+
         target = FindClosest();
         if (target == null)
         {
@@ -156,6 +157,7 @@ public abstract class Units : MonoBehaviour
 
         animator.SetInteger("state", 2);
         targetScript.LoseHealth(gameObject, type, attack, magical);
+        //StartCoroutine(CatchUp());
     }
 
     public virtual void Move()
@@ -239,4 +241,11 @@ public abstract class Units : MonoBehaviour
         yield return new WaitForSeconds(adjAttackSpeed);
         attackingPause = false;
     }
+
+    // public IEnumerator CatchUp()
+    // {
+    //     catchUp = true;
+    //     yield return new WaitForSeconds(.1f);
+    //     catchUp = false;
+    // }
 }

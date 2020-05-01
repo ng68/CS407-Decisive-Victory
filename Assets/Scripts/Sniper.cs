@@ -34,5 +34,6 @@ public class Sniper : Units
 		adjustedAttack = attack * (1+averageDistance);
         
 		targetScript.LoseHealth(gameObject, type, adjustedAttack, magical);
+        //StartCoroutine(CatchUp());
     }
 }
