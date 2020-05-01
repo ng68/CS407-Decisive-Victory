@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMovable: 0
   multiplePurchasable: 0
-  price: 400
+  price: 300
   purchasableEnemy: 0
 --- !u!114 &4554176333732841633
 MonoBehaviour:
@@ -167,7 +167,7 @@ MonoBehaviour:
   magical: 1
   physicalArmorPercent: 0
   magicalArmorPercent: 0
-  moveTime: 0.1
+  moveTime: 0.2
   healthBar: {fileID: 655019533494854681}
   attackSound: {fileID: 8300000, guid: a00aaad9c6f82264dbe7669d97725510, type: 3}
   deathSound: {fileID: 8300000, guid: 36ffdee93a8155a4085012543afe3672, type: 3}

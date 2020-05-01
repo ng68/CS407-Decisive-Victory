@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMovable: 0
   multiplePurchasable: 0
-  price: 150
+  price: 175
   purchasableEnemy: 0
 --- !u!114 &8259116661476754306
 MonoBehaviour:
@@ -160,8 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffe03e5eee73724eaac05c5ff6f1252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  attack: 25
+  health: 80
+  attack: 20
   attackSpeed: 2
   range: 1
   magical: 0

@@ -300,11 +300,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1770129377655437318, guid: b3023a1b776fd9542887e73e12fb54ab,
-        type: 3}
-      propertyPath: startingGold
-      value: 700
-      objectReference: {fileID: 0}
     - target: {fileID: 6424645570234190768, guid: b3023a1b776fd9542887e73e12fb54ab,
         type: 3}
       propertyPath: m_Name

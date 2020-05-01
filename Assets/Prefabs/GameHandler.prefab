@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3129400b70d2e44ead9fb28ab1faee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingGold: 400
+  startingGold: 1200
   gold: 200
 --- !u!114 &2647295219762149633
 MonoBehaviour:

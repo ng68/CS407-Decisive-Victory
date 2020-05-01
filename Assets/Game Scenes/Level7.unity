@@ -2200,7 +2200,7 @@ PrefabInstance:
     - target: {fileID: 1770129377655437318, guid: b3023a1b776fd9542887e73e12fb54ab,
         type: 3}
       propertyPath: startingGold
-      value: 1800
+      value: 2100
       objectReference: {fileID: 0}
     - target: {fileID: 6424645570234190768, guid: b3023a1b776fd9542887e73e12fb54ab,
         type: 3}
