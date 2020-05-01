@@ -38,6 +38,7 @@ public class MovableUnit : MonoBehaviour
 
     //FOR TRAINING MODE ONLY
     public bool purchasableEnemy = false;
+    //Enemy needs to be tagged as enemy already and this bool only works if changed before the unit is loaded (it relys on Start)
 
     void Start(){
         multiplePurchasable = true;

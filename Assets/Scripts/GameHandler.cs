@@ -15,6 +15,7 @@ public class GameHandler : MonoBehaviour
     private bool enemyDeadCheck;
     private bool gameEnd = false;
     private bool takeTime = true;
+    private bool trainingRoom = false;
     
     // Start is called before the first frame update
     void Start()
@@ -63,14 +64,22 @@ public class GameHandler : MonoBehaviour
             if (enemyDeadCheck) {
                 //gameEnd = true;
                 if (!takeTime) {
-                    winScreen.SetActive(true);
-                    double finalscore = (currentallies / highestAlly) * 10;
-
-                    int finalstring = Convert.ToInt32(finalscore);
-                    string toChange = "Your Score: " + finalstring;
-                    GameObject.Find("ScoreText").GetComponentInChildren<Text>().text = toChange;
-                    PlayerPrefs.SetInt("score", finalstring);
-
+                    if(trainingRoom == true){
+                        winScreen.SetActive(true);
+                        double finalscore = (currentallies / highestAlly) * 10;
+                        int finalstring = Convert.ToInt32(finalscore);
+                        string toChange = "Your Score: " + finalstring;
+                        GameObject.Find("ScoreText").GetComponentInChildren<Text>().text = toChange;
+                        //I don't believe score is done, but basically the training room version wont save score for anything (since its a sandbox level)
+                        //PlayerPrefs.SetInt("score", finalstring);
+                    }else{
+                        winScreen.SetActive(true);
+                        double finalscore = (currentallies / highestAlly) * 10;
+                        int finalstring = Convert.ToInt32(finalscore);
+                        string toChange = "Your Score: " + finalstring;
+                        GameObject.Find("ScoreText").GetComponentInChildren<Text>().text = toChange;
+                        PlayerPrefs.SetInt("score", finalstring);
+                    }
 
                 }
                 else {
@@ -84,6 +93,10 @@ public class GameHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         takeTime = false;
+    }
+
+    public void ActivateTrainingRoom(){
+        trainingRoom = true;
     }
     
 }
