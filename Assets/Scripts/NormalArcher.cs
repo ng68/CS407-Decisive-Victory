@@ -15,6 +15,10 @@ public class NormalArcher : Units
 
 	override public void Attack() {
 		Vector3 check = target.transform.position;
+		AudioSource audio = gameObject.GetComponent<AudioSource>();
+        audio.clip = attackSound;
+        audio.enabled = true;
+        audio.Play();
         if (check.x < transform.position.x && facingRight) {
             mySpriteRenderer.flipX = !mySpriteRenderer.flipX;
             facingRight = false;

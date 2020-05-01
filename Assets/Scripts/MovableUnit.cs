@@ -30,9 +30,14 @@ public class MovableUnit : MonoBehaviour
     //private GameObject textLog;
     //for money interactions
     public bool multiplePurchasable = true;
+    //this is public so it can be turned off by us on a per unit basis, but is currently- 
+    //redudant because the "start" function sets it to true immediately, but if that is changed then this will function.
     private bool isPurchasable = false;
     private bool isSellable = false;
     public int price = 0;
+
+    //FOR TRAINING MODE ONLY
+    public bool purchasableEnemy = false;
 
     void Start(){
         multiplePurchasable = true;
@@ -80,6 +85,17 @@ public class MovableUnit : MonoBehaviour
             //Yes this next line causes an error if the "priceText" doesn't exist, however that does not break the game functioning at all.
             healthBar.SetActive(true);
             priceTextBox.SetActive(false);
+            if(purchasableEnemy == true){
+                //This is sort of lazy coding but I just wanted to amke sure everything is set the same way
+                sellPosX = this.transform.localPosition.x;
+                sellPosY = this.transform.localPosition.y;
+                this.isPurchasable = true;
+                this.isSellable = false;
+                this.isMovable = true;
+                healthBar.SetActive(false);
+                priceTextBox.SetActive(true);
+                Debug.Log("Purchasable Enemy Loaded.");
+            }
 		}else if(this.tag == "Ally"){
             //sets the "to sell position", only matters for units we can buy/sell
             sellPosX = this.transform.localPosition.x;
