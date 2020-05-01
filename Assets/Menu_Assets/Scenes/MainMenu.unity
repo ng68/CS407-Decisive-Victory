@@ -10360,6 +10360,8 @@ MonoBehaviour:
   level6: Level6
   level7: Level7
   level8: Level8
+  tutorial: Tutorial
+  sandbox: TrainingRoom
   menuNumber: 0
   menuDefaultCanvas: {fileID: 1939101950031649}
   GeneralSettingsCanvas: {fileID: 1053070461060097}

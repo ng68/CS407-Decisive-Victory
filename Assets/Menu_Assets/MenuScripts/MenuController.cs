@@ -29,6 +29,8 @@ public class MenuController : MonoBehaviour
     public string level6;
     public string level7;
     public string level8;
+    public string tutorial;
+    public string sandbox;
 
 
     [SerializeField] private int menuNumber;
@@ -46,6 +48,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject leaderboardCanvas;
     [SerializeField] private GameObject levelSelect;
     [SerializeField] private GameObject InputCanvas;
+
     [Space(10)]
     [Header("Menu Popout Dialogs")]
     [SerializeField] private GameObject noSaveDialog;
@@ -508,10 +511,21 @@ public class MenuController : MonoBehaviour
             Globals.currLevel = 8;
             SceneManager.LoadScene(level8);
         }
+        if (buttonType == "SBX")
+        {
+            Globals.currLevel = 9;
+            SceneManager.LoadScene(sandbox);
+        }
+        if (buttonType == "Tutorial")
+        {
+            Globals.currLevel = 0;
+            SceneManager.LoadScene(tutorial);
+        }
         if (buttonType == "InputText")
         {
             StoreName();
         }
+
     }
     #endregion
 
