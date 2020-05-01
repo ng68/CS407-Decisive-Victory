@@ -23,6 +23,12 @@ public class MenuController : MonoBehaviour
     public string level;
     private string levelToLoad;
     public string level2;
+    public string level3;
+    public string level4;
+    public string level5;
+    public string level6;
+    public string level7;
+    public string level8;
 
 
     [SerializeField] private int menuNumber;
@@ -471,6 +477,36 @@ public class MenuController : MonoBehaviour
         {
             Globals.currLevel = 2;
             SceneManager.LoadScene(level2);
+        }
+        if (buttonType == "L3")
+        {
+            Globals.currLevel = 3;
+            SceneManager.LoadScene(level3);
+        }
+        if (buttonType == "L4")
+        {
+            Globals.currLevel = 4;
+            SceneManager.LoadScene(level4);
+        }
+        if (buttonType == "L5")
+        {
+            Globals.currLevel = 5;
+            SceneManager.LoadScene(level5);
+        }
+        if (buttonType == "L6")
+        {
+            Globals.currLevel = 6;
+            SceneManager.LoadScene(level6);
+        }
+        if (buttonType == "L7")
+        {
+            Globals.currLevel = 7;
+            SceneManager.LoadScene(level7);
+        }
+        if (buttonType == "L8")
+        {
+            Globals.currLevel = 8;
+            SceneManager.LoadScene(level8);
         }
         if (buttonType == "InputText")
         {
