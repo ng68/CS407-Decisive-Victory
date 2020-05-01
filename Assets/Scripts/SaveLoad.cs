@@ -67,13 +67,15 @@ public class savedata : IComparable
     [SerializeField]
     public int levelswon;
 
+    public int sumofScores;
     [SerializeField]
-    public int score;
+    public int[] scores = new int[10];
 
 
     public int CompareTo(object obj)
     {
-        return this.score.CompareTo((obj as savedata).score);
+
+        return this.sumofScores.CompareTo((obj as savedata).sumofScores);
     }
 }
 

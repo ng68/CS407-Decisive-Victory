@@ -8,16 +8,28 @@ using System;
 
 public class MenuController : MonoBehaviour
 {
+    int defer_update = 0;
+    public string theName;
     #region Default Values
     [Header("Default Menu Values")]
     [SerializeField] private float defaultBrightness;
     [SerializeField] private float defaultVolume;
     [SerializeField] private int defaultSen;
     [SerializeField] private bool defaultInvertY;
+    [SerializeField] public InputField inputField;
+
 
     [Header("Levels To Load")]
     public string level;
     private string levelToLoad;
+    public string level2;
+    public string level3;
+    public string level4;
+    public string level5;
+    public string level6;
+    public string level7;
+    public string level8;
+
 
     [SerializeField] private int menuNumber;
     #endregion
@@ -32,6 +44,8 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject controlsMenu;
     [SerializeField] private GameObject confirmationMenu;
     [SerializeField] private GameObject leaderboardCanvas;
+    [SerializeField] private GameObject levelSelect;
+    [SerializeField] private GameObject InputCanvas;
     [Space(10)]
     [Header("Menu Popout Dialogs")]
     [SerializeField] private GameObject noSaveDialog;
@@ -57,10 +71,20 @@ public class MenuController : MonoBehaviour
     #endregion
     #region Initialisation - Button Selection & Menu Order
     public SaveLoad saver;
-    public static int activeProfile;
-    public static savedata[] saves = new savedata[2];
+    //public static int activeProfile;
+    //public static savedata[] saves = new savedata[2];
     private void Start()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            int sum = 0;
+            for (int j = 0; j < 10; j++)
+            {
+                //Debug.Log("Current value of J = "+j);
+                sum = sum + Globals.saves[i].scores[j];
+            }
+            Globals.saves[i].sumofScores = sum;
+        }
         menuNumber = 1;
         if (PlayerPrefs.HasKey("username"))
         {
@@ -68,21 +92,43 @@ public class MenuController : MonoBehaviour
         }
         else
         {
-            PlayerPrefs.SetString("userName", "Luna");
-            PlayerPrefs.SetInt("levels", 3);
+            //PlayerPrefs.SetString("userName", "Luna");
+            //PlayerPrefs.SetInt("levels", 3);
         }
-        for (int i = 0; i < 2; i++)
-        {
-            saves[i] = new savedata();
-        }
-        saves[0].charname = "Luna";
-        saves[0].score = 4;
-        saves[0].levelswon = 1;
 
-        saves[1].charname = "Willow";
-        saves[1].score = 0;
-        saves[1].levelswon = 0;
-        activeProfile = 0;
+        Globals.currLevel = 11;
+        Debug.Log("Main menu loaded, current level = " + Globals.currLevel);
+        int currProfile = -1;
+        for (int i = 0; i < 3; i++)
+        {
+            if (string.Equals(Globals.saves[i].charname, Globals.currUser))
+            {
+                currProfile = i;
+            }
+        }
+        if (currProfile >= 0)
+        {
+            Debug.Log("Scores of current user " + Globals.currUser + ": " + Globals.saves[currProfile].scores[0] +
+                " " + Globals.saves[currProfile].scores[1] + " " + Globals.saves[currProfile].scores[2] + " " + Globals.saves[currProfile].scores[3] + " "
+                + Globals.saves[currProfile].scores[4] + " " + Globals.saves[currProfile].scores[5] + " " + Globals.saves[currProfile].scores[6] + " "
+                + Globals.saves[currProfile].scores[7] + " " + Globals.saves[currProfile].scores[8] + " " + Globals.saves[currProfile].scores[9]);
+                Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+
+            int score = Globals.saves[currProfile].sumofScores;
+            string profName = Globals.saves[currProfile].charname;
+            Debug.Log(Globals.saves[currProfile].sumofScores);
+            Debug.Log(score);
+            string toChange = "Welcome " + profName + "\nYour score is " + score;
+            thisButton.GetComponentInChildren<Text>().text = toChange;
+        }
+        else
+        {
+            Debug.Log("User " + Globals.currUser + " not found");
+            Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+            string toChange = "Profile Not Loaded";
+            thisButton.GetComponentInChildren<Text>().text = toChange;
+        }
+
         /*
             Array.Sort(saves);
 
@@ -111,6 +157,62 @@ public class MenuController : MonoBehaviour
 
     private void Update()
     {
+        
+        if (leaderboardCanvas.activeSelf&&defer_update==0)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                int sum = 0;
+                for (int j = 0; j < 10; j++)
+                {
+                    //Debug.Log("Current value of J = "+j);
+                    sum = sum + Globals.saves[i].scores[j];
+                }
+                Globals.saves[i].sumofScores = sum;
+            }
+            Array.Sort(Globals.saves);
+            Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
+            Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
+            Button butt3 = GameObject.Find("Player_3").GetComponent<Button>();
+
+            string b1Text = Globals.saves[2].charname + "               " + Globals.saves[2].sumofScores + "\n";
+            string b2Text = Globals.saves[1].charname + "               " + Globals.saves[1].sumofScores + "\n";
+            string b3Text = Globals.saves[0].charname + "               " + Globals.saves[0].sumofScores + "\n";
+
+            butt1.GetComponentInChildren<Text>().text = b1Text;
+            butt2.GetComponentInChildren<Text>().text = b2Text;
+            butt3.GetComponentInChildren<Text>().text = b3Text;
+
+
+        }
+        if (menuDefaultCanvas.activeSelf)
+        {
+            int currProfile = -1;
+            for (int i = 0; i < 3; i++)
+            {
+                if (string.Equals(Globals.saves[i].charname, Globals.currUser))
+                {
+                    currProfile = i;
+                }
+            }
+            if (currProfile >= 0)
+            {
+                Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+
+                int score = Globals.saves[currProfile].sumofScores;
+                string profName = Globals.saves[currProfile].charname;
+                string toChange = "Welcome " + profName + "\nYour score is " + score;
+                thisButton.GetComponentInChildren<Text>().text = toChange;
+            }
+            else
+            {
+                Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
+                string toChange = "Profile Not Loaded";
+                thisButton.GetComponentInChildren<Text>().text = toChange;
+            }
+
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (menuNumber == 2 || menuNumber == 7 || menuNumber == 8 || menuNumber == 9 || menuNumber == 10)
@@ -185,7 +287,7 @@ public class MenuController : MonoBehaviour
         if (buttonType == "LoadGame")
         {
             menuDefaultCanvas.SetActive(false);
-            loadGameDialog.SetActive(true);
+            levelSelect.SetActive(true);
             menuNumber = 8;
         }
 
@@ -207,13 +309,22 @@ public class MenuController : MonoBehaviour
             menuDefaultCanvas.SetActive(false);
             leaderboardCanvas.SetActive(true);
             menuNumber = 10;
-            Array.Sort(saves);
+            for(int i = 0; i < 2; i++)
+            {
+                int sum = 0;
+                for(int j = 0; j < 10; j++)
+                {
+                    sum = sum + Globals.saves[i].scores[j];
+                }
+                Globals.saves[i].sumofScores = sum;
+            }
+            Array.Sort(Globals.saves);
 
             Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
             Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
 
-            string b1Text = saves[1].charname + "               " + saves[1].score + "\n";
-            string b2Text = saves[0].charname + "               " + saves[0].score + "\n";
+            string b1Text = Globals.saves[2].charname + "               " + Globals.saves[2].sumofScores + "\n";
+            string b2Text = Globals.saves[1].charname + "               " + Globals.saves[1].sumofScores + "\n";
 
             butt1.GetComponentInChildren<Text>().text = b1Text;
             butt2.GetComponentInChildren<Text>().text = b2Text;
@@ -222,20 +333,184 @@ public class MenuController : MonoBehaviour
 
         if (buttonType == "P1")
         {
-            PlayerPrefs.SetString("userName", saves[1].charname);
-            PlayerPrefs.SetInt("score", saves[1].score);
-            PlayerPrefs.SetInt("activeProfile", 1);
-            activeProfile = 1;
+            if (string.Equals(Globals.saves[2].charname, "None"))
+            {
+                leaderboardCanvas.SetActive(false);
+                InputCanvas.SetActive(true);
+                Globals.currSlot = 2;
+            }
+            else
+            {
+                PlayerPrefs.SetString("userName", Globals.saves[2].charname);
+                PlayerPrefs.SetInt("score", Globals.saves[2].sumofScores);
+                PlayerPrefs.SetInt("activeProfile", 2);
+                Globals.currUser = Globals.saves[2].charname;
+                Debug.Log("Current global user = " + Globals.currUser);
+            }
+
             GoBackToMainMenu();
         }
 
         if (buttonType == "P2")
         {
-            PlayerPrefs.SetString("userName", saves[0].charname);
-            PlayerPrefs.SetInt("score", saves[0].score);
-            PlayerPrefs.SetInt("activeProfile", 0);
-            activeProfile = 0;
-            GoBackToMainMenu();
+            if (string.Equals(Globals.saves[1].charname, "None"))
+            {
+                leaderboardCanvas.SetActive(false);
+                InputCanvas.SetActive(true);
+                Globals.currSlot = 1;
+            }
+            else
+            {
+                PlayerPrefs.SetString("userName", Globals.saves[1].charname);
+                PlayerPrefs.SetInt("score", Globals.saves[1].sumofScores);
+                PlayerPrefs.SetInt("activeProfile", 1);
+                Globals.currUser = Globals.saves[1].charname;
+                Debug.Log("Current global user = " + Globals.currUser);
+                GoBackToMainMenu();
+            }
+
+        }
+        if (buttonType == "P3")
+        {
+            if (string.Equals(Globals.saves[0].charname, "None"))
+            {
+                leaderboardCanvas.SetActive(false);
+                InputCanvas.SetActive(true);
+                Globals.currSlot = 0;
+            }
+            else
+            {
+                PlayerPrefs.SetString("userName", Globals.saves[0].charname);
+                PlayerPrefs.SetInt("score", Globals.saves[0].sumofScores);
+                PlayerPrefs.SetInt("activeProfile", 0);
+                Globals.currUser = Globals.saves[0].charname;
+                Debug.Log("Current global user = " + Globals.currUser);
+                GoBackToMainMenu();
+            }
+
+        }
+        if (buttonType == "D1")
+        {
+            defer_update = 1;
+            Globals.saves[2] = Globals.saves[1];
+            Globals.saves[1] = Globals.saves[0];
+            Globals.currUser = "None";
+            Globals.saves[0] = new savedata();
+            Globals.saves[0].charname = "None";
+            Globals.saves[0].sumofScores = -1;
+            for(int i = 0; i < 10; i++)
+            {
+                Globals.saves[0].scores[i] = 0;
+            }
+            
+            Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
+            Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
+            Button butt3 = GameObject.Find("Player_3").GetComponent<Button>();
+
+            string b1Text = Globals.saves[2].charname + "               " + Globals.saves[2].sumofScores + "\n";
+            string b2Text = Globals.saves[1].charname + "               " + Globals.saves[1].sumofScores + "\n";
+            string b3Text = Globals.saves[0].charname + "               " + Globals.saves[0].sumofScores + "\n";
+
+            butt1.GetComponentInChildren<Text>().text = b1Text;
+            butt2.GetComponentInChildren<Text>().text = b2Text;
+            butt3.GetComponentInChildren<Text>().text = b3Text;
+            defer_update = 0;
+        }
+        if (buttonType == "D2")
+        {
+            defer_update = 1;
+            Globals.saves[1] = Globals.saves[0];
+            Globals.saves[0] = new savedata();
+            Globals.currUser = "None";
+                Globals.saves[0].charname = "None";
+                Globals.saves[0].sumofScores = -1;
+                for (int i = 0; i < 10; i++)
+                {
+                    Globals.saves[0].scores[i] = 0;
+                }
+                Array.Sort(Globals.saves);
+            Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
+            Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
+            Button butt3 = GameObject.Find("Player_3").GetComponent<Button>();
+
+            string b1Text = Globals.saves[2].charname + "               " + Globals.saves[2].sumofScores + "\n";
+            string b2Text = Globals.saves[1].charname + "               " + Globals.saves[1].sumofScores + "\n";
+            string b3Text = Globals.saves[0].charname + "               " + Globals.saves[0].sumofScores + "\n";
+
+            butt1.GetComponentInChildren<Text>().text = b1Text;
+            butt2.GetComponentInChildren<Text>().text = b2Text;
+            butt3.GetComponentInChildren<Text>().text = b3Text;
+            defer_update = 0;
+        }
+        if (buttonType == "D3")
+        {
+            defer_update = 1;
+            Globals.currUser = "None";
+            Globals.saves[0] = new savedata();
+
+            Globals.saves[0].charname = "None";
+            Globals.saves[0].sumofScores = -1;
+            for (int i = 0; i < 10; i++)
+            {
+                Globals.saves[0].scores[i] = 0;
+            }
+            Array.Sort(Globals.saves);
+            Button butt1 = GameObject.Find("Player_1").GetComponent<Button>();
+            Button butt2 = GameObject.Find("Player_2").GetComponent<Button>();
+            Button butt3 = GameObject.Find("Player_3").GetComponent<Button>();
+
+            string b1Text = Globals.saves[2].charname + "               " + Globals.saves[2].sumofScores + "\n";
+            string b2Text = Globals.saves[1].charname + "               " + Globals.saves[1].sumofScores + "\n";
+            string b3Text = Globals.saves[0].charname + "               " + Globals.saves[0].sumofScores + "\n";
+
+            butt1.GetComponentInChildren<Text>().text = b1Text;
+            butt2.GetComponentInChildren<Text>().text = b2Text;
+            butt3.GetComponentInChildren<Text>().text = b3Text;
+            defer_update = 0;
+        }
+        if (buttonType == "L1")
+        {
+            Globals.currLevel = 1;
+            SceneManager.LoadScene(level);
+        }
+        if (buttonType == "L2")
+        {
+            Globals.currLevel = 2;
+            SceneManager.LoadScene(level2);
+        }
+        if (buttonType == "L3")
+        {
+            Globals.currLevel = 3;
+            SceneManager.LoadScene(level3);
+        }
+        if (buttonType == "L4")
+        {
+            Globals.currLevel = 4;
+            SceneManager.LoadScene(level4);
+        }
+        if (buttonType == "L5")
+        {
+            Globals.currLevel = 5;
+            SceneManager.LoadScene(level5);
+        }
+        if (buttonType == "L6")
+        {
+            Globals.currLevel = 6;
+            SceneManager.LoadScene(level6);
+        }
+        if (buttonType == "L7")
+        {
+            Globals.currLevel = 7;
+            SceneManager.LoadScene(level7);
+        }
+        if (buttonType == "L8")
+        {
+            Globals.currLevel = 8;
+            SceneManager.LoadScene(level8);
+        }
+        if (buttonType == "InputText")
+        {
+            StoreName();
         }
     }
     #endregion
@@ -339,6 +614,7 @@ public class MenuController : MonoBehaviour
     {
         if (ButtonType == "Yes")
         {
+            Globals.currLevel = 1;
             SceneManager.LoadScene(level);
         }
 
@@ -405,11 +681,7 @@ public class MenuController : MonoBehaviour
     public void GoBackToMainMenu()
     {
         menuDefaultCanvas.SetActive(true);
-        Button thisButton = GameObject.Find("Profile_Button").GetComponent<Button>();
-        int score = saves[activeProfile].score;
-        string profName = saves[activeProfile].charname;
-        string toChange = "Welcome " + profName + "\nYour score is " + score;
-        thisButton.GetComponentInChildren<Text>().text = toChange;
+
         leaderboardCanvas.SetActive(false);
         newGameDialog.SetActive(false);
         loadGameDialog.SetActive(false);
@@ -421,7 +693,17 @@ public class MenuController : MonoBehaviour
         gameplayMenu.SetActive(false);
         menuNumber = 1;
     }
+    public void StoreName()
+    {
+        string fromText = inputField.text;
 
+        Globals.saves[Globals.currSlot].charname = fromText;
+        
+        //Debug.Log("Inputted name = " + theName);
+        Globals.currUser = fromText;
+        InputCanvas.SetActive(false);
+        GoBackToMainMenu();
+    }
     public void GoBackToGameplayMenu()
     {
         controlsMenu.SetActive(false);
