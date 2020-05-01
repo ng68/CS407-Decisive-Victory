@@ -321,6 +321,7 @@ MonoBehaviour:
   isMovable: 0
   multiplePurchasable: 0
   price: 200
+  purchasableEnemy: 0
 --- !u!114 &7993242225318731690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,7 +337,7 @@ MonoBehaviour:
   health: 100
   attack: 30
   attackSpeed: 2
-  range: 15
+  range: 1
   magical: 1
   physicalArmorPercent: 0.25
   magicalArmorPercent: 0.25

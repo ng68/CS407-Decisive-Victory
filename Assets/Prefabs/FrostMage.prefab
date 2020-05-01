@@ -324,6 +324,7 @@ MonoBehaviour:
   isMovable: 0
   multiplePurchasable: 0
   price: 500
+  purchasableEnemy: 0
 --- !u!114 &7012443518397988119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,8 +338,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 75
-  attack: 7
-  attackSpeed: 1
+  attack: 14
+  attackSpeed: 2
   range: 8
   magical: 1
   physicalArmorPercent: 0
@@ -357,6 +358,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   targetScript: {fileID: 0}
   slowed: 0
+  haste: 0
 --- !u!82 &276301656
 AudioSource:
   m_ObjectHideFlags: 0

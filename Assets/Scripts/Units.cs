@@ -202,6 +202,7 @@ public abstract class Units : MonoBehaviour
 
     public IEnumerator Stun(float stunTime) {
         stunned = true;
+        animator.SetInteger("state", 0);
         yield return new WaitForSeconds(stunTime);
         stunned = false;
     }
