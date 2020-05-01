@@ -37,6 +37,8 @@ public abstract class Units : MonoBehaviour
     private bool attackingPause = false;
     private bool movePause = false;
 
+    private PathFinder pf;
+
     public GameObject FindClosest()
     {
         GameObject closest = null;
@@ -64,6 +66,8 @@ public abstract class Units : MonoBehaviour
         LogText = GameObject.Find("/UIController/Log_Canvas/GameLog_Canvas/Log Field/Log Text");
         StartCoroutine(PauseTime());
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+
+        pf = new PathFinder(9,9);
         
         animator = GetComponent<Animator>();
         if (transform.gameObject.tag == "Enemy")
@@ -153,7 +157,9 @@ public abstract class Units : MonoBehaviour
 
         animator.SetInteger("state", 1);
         float step = speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
+        //transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
+        pf.FindPath(transform.position, target.transform.position);
+
     }
 
     void AttemptAction ()
