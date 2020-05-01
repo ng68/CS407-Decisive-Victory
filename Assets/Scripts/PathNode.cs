@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PathNode
 {
-    private GameGrid grid;
-    private int x;
-    private int y;
+    private GameGrid<PathNode> grid;
+    public int x;
+    public int y;
 
     public int gCost;
     public int hCost;
@@ -16,7 +16,7 @@ public class PathNode
 
     public PathNode originNode;
 
-    public PathNode(GameGrid grid, int x, int y){
+    public PathNode(GameGrid<PathNode> grid, int x, int y){
         this.grid = grid;
         this.x = x;
         this.y = y;
@@ -25,5 +25,10 @@ public class PathNode
 
     public void calculateFCost(){
         fCost = gCost + hCost;
+    }
+
+    public void SetIsWalkable(bool isWalkable) {
+        this.isWalkable = isWalkable;
+        grid.TriggerGridObjectChanged(x, y);
     }
 }

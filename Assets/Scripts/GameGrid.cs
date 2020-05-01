@@ -17,7 +17,7 @@ public class GameGrid<TGridObject> {
 	private Vector3 originPos;
 	private TGridObject[,] gridArray;
 
-	public GameGrid(int width, int height, float cellSize, Vector3 originPos, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject){
+	public GameGrid(int width, int height, float cellSize, Vector3 originPos, Func<GameGrid<TGridObject>, int, int, TGridObject> createGridObject){
 
 		this.width = width;
 		this.height = height;
@@ -49,15 +49,15 @@ public class GameGrid<TGridObject> {
 	}
 
 	//accessor methods
-	public int getWidth(){
+	public int GetWidth(){
 		return this.width;
 	}
 
-	public int getHeight(){
+	public int GetHeight(){
 		return this.height;
 	}
 
-	public float getCellSize() {
+	public float GetCellSize() {
         return cellSize;
     }
 
@@ -68,13 +68,13 @@ public class GameGrid<TGridObject> {
 
 	//Modified world position to spawn cells in correct locations
 	public Vector3 GetProperWorldPosition(int x, int y){
-		Vector3 properPos = new Vector3(x, y) * cellSize;
+		Vector3 properPos = new Vector3(x, y) * cellSize + originPos;
 		properPos = properPos + new Vector3(cellSize/2, cellSize/2);
 		return properPos;
 	}
 
 	//methods for On Click
-	private void GetXY(Vector3 worldPosition, out int x, out int y){
+	public void GetXY(Vector3 worldPosition, out int x, out int y){
 		x = Mathf.FloorToInt((worldPosition - originPos).x / cellSize);
 		y = Mathf.FloorToInt((worldPosition - originPos).y / cellSize);
 	}
@@ -110,7 +110,7 @@ public class GameGrid<TGridObject> {
         return GetGridObject(x, y);
     }
 
-	/*//clicking functions
+	//clicking functions
 	public void SquareClick (Vector3 worldPosition){
 		//currently there is no need for a function on click, but is still here for testing purposes
 		int x, y;
@@ -122,7 +122,7 @@ public class GameGrid<TGridObject> {
 		}else{
 			//Debug.Log("Out of bounds click");
 		}
-	}*/
+	}
 
 	public void DropUnitOnSquare (Vector3 worldPosition, out Vector3 endPos, out bool success){
 		int x, y;

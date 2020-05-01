@@ -7,24 +7,47 @@ public class PathFinder
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
 
-    private GameGrid grid;
+    public static PathFinder Instance { get; private set; }
+
+    public GameGrid<PathNode> grid;
     private List<PathNode> openblocks;
     private List<PathNode> closedblocks;
 
     public PathFinder(int width, int height){
+        Instance = this;
         grid = new GameGrid<PathNode>(width, height, 10f, Vector3.zero, (GameGrid<PathNode> g, int x, int y) => new PathNode(g, x, y));
 
+    }
+
+    public List<Vector3> FindPath(Vector3 startWorldPosition, Vector3 endWorldPosition) {
+        grid.GetXY(startWorldPosition, out int startX, out int startY);
+        grid.GetXY(endWorldPosition, out int endX, out int endY);
+
+        List<PathNode> path = FindPath(startX, startY, endX, endY);
+        if (path == null) {
+            return null;
+        } else {
+            List<Vector3> vectorPath = new List<Vector3>();
+            foreach (PathNode pathNode in path) {
+                vectorPath.Add(new Vector3(pathNode.x, pathNode.y) * grid.GetCellSize() + Vector3.one * grid.GetCellSize() * .5f);
+            }
+            return vectorPath;
+        }
     }
 
     private List<PathNode> FindPath(int startX, int startY, int  endX, int endY){
         PathNode startNode = grid.GetGridObject(startX, startY);
         PathNode endNode = grid.GetGridObject(endX, endY);
+        if (startNode == null || endNode == null) {
+            // Invalid Path
+            return null;
+        }
         openblocks = new List<PathNode> {startNode};
         closedblocks = new List<PathNode>();
         
         for(int i=0; i<grid.GetWidth(); i++){
             for(int j=0; j<grid.GetHeight(); j++){
-                PathNode n = grid.GetGridObject(x,y);
+                PathNode n = grid.GetGridObject(i,j);
                 n.gCost = int.MaxValue;
                 n.calculateFCost();
                 n.originNode = null;
@@ -44,9 +67,9 @@ public class PathFinder
             closedblocks.Add(curr);
 
             foreach (PathNode neighbourNode in getNeighbors(curr)) {
-                if (closedList.Contains(neighbourNode)) continue;
+                if (closedblocks.Contains(neighbourNode)) continue;
                 if (!neighbourNode.isWalkable) {
-                    closedList.Add(neighbourNode);
+                    closedblocks.Add(neighbourNode);
                     continue;
                 }
                 int tentativeGCost = curr.gCost + calculateDistance(curr, neighbourNode);
@@ -56,8 +79,8 @@ public class PathFinder
                     neighbourNode.hCost = calculateDistance(neighbourNode, endNode);
                     neighbourNode.calculateFCost();
 
-                    if (!openList.Contains(neighbourNode)) {
-                        openList.Add(neighbourNode);
+                    if (!openblocks.Contains(neighbourNode)) {
+                        openblocks.Add(neighbourNode);
                     }
                 }
             }
@@ -120,11 +143,11 @@ public class PathFinder
         return lowestNode;
     }
 
-    public PathNode getNode(int x, int y) {
+    public PathNode GetNode(int x, int y) {
         return grid.GetGridObject(x, y);
     }
 
-    public GameGrid<PathNode> getGrid() {
+    public GameGrid<PathNode> GetGrid() {
         return grid;
     }
 
