@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+public static class Globals
+{
+    public static savedata[] saves = new savedata[3];
+    public static int currLevel;
+    public static string currUser;
+    public static bool nonInitiated=true;
+}
 public class Init_LoadPreferences : MonoBehaviour
 {
     #region Variables
@@ -35,7 +41,24 @@ public class Init_LoadPreferences : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Loading player prefs test");
+        if (Globals.nonInitiated)
+        {
+            Debug.Log("Loading player prefs test");
+            for (int i = 0; i < 3; i++)
+            {
+                Globals.saves[i] = new savedata();
+                Globals.saves[i].charname = "None";
+            }
+            Globals.saves[2].charname = "Luna";
+            Globals.saves[2].scores[3] = 0;
+            Globals.saves[2].levelswon = 0;
+            Globals.saves[1].charname = "Willow";
+            Globals.saves[1].levelswon = 1;
+            Globals.saves[1].scores[3] = 4;
+            Globals.currUser = "Kumquat";
+            Globals.nonInitiated = false;
+        }
+
 
         if (canUse)
         {

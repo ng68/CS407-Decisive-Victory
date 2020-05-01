@@ -78,7 +78,35 @@ public class GameHandler : MonoBehaviour
                         int finalstring = Convert.ToInt32(finalscore);
                         string toChange = "Your Score: " + finalstring;
                         GameObject.Find("ScoreText").GetComponentInChildren<Text>().text = toChange;
-                        PlayerPrefs.SetInt("score", finalstring);
+                        int currProfile = -1;
+                        for(int i = 0; i < 2; i++)
+                        {
+                            if (string.Equals(Globals.saves[i].charname, Globals.currUser))
+                            {
+                                currProfile = i;
+                            }
+                        }
+                        if (currProfile < 0)
+                        {
+                            Debug.Log("Error: Profile not found.");
+                        }
+                        else
+                        {
+                            if (Globals.saves[currProfile].scores[Globals.currLevel] < finalstring)
+                            {
+                                Globals.saves[currProfile].scores[Globals.currLevel] = finalstring;
+                            }
+                            int scoreSum = 0;
+                            Debug.Log("Sum of Scores before change: " + Globals.saves[currProfile].sumofScores);
+                            for (int i = 0; i < 10; i++)
+                            {
+                                scoreSum = scoreSum + Globals.saves[currProfile].scores[i];
+                            }
+                            Globals.saves[currProfile].sumofScores = scoreSum;
+                            //Debug.Log("Sum of Scores after change: " + Globals.saves[currProfile].sumofScores);
+                            //PlayerPrefs.SetInt("score", finalstring);
+                        }
+
                     }
 
                 }

@@ -83,7 +83,9 @@ public class GameUI : MonoBehaviour
     public void  MouseClick(string buttonType)
     {
         if (buttonType == "Pause")
-        {   
+        {
+            Debug.Log("Current global user = " + Globals.currUser);
+            Debug.Log("Current level = " + Globals.currLevel);
             Time.timeScale = 0.0f;
             pauseDialog.SetActive(true);
             AppendLog("Game Paused!");
