@@ -8,6 +8,7 @@ public static class Globals
     public static int currLevel;
     public static string currUser;
     public static bool nonInitiated=true;
+    public static int currSlot;
 }
 public class Init_LoadPreferences : MonoBehaviour
 {

@@ -9,13 +9,15 @@ using System;
 public class MenuController : MonoBehaviour
 {
     int defer_update = 0;
-
+    public string theName;
     #region Default Values
     [Header("Default Menu Values")]
     [SerializeField] private float defaultBrightness;
     [SerializeField] private float defaultVolume;
     [SerializeField] private int defaultSen;
     [SerializeField] private bool defaultInvertY;
+    [SerializeField] public InputField inputField;
+
 
     [Header("Levels To Load")]
     public string level;
@@ -37,6 +39,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject confirmationMenu;
     [SerializeField] private GameObject leaderboardCanvas;
     [SerializeField] private GameObject levelSelect;
+    [SerializeField] private GameObject InputCanvas;
     [Space(10)]
     [Header("Menu Popout Dialogs")]
     [SerializeField] private GameObject noSaveDialog;
@@ -324,31 +327,61 @@ public class MenuController : MonoBehaviour
 
         if (buttonType == "P1")
         {
-            PlayerPrefs.SetString("userName", Globals.saves[2].charname);
-            PlayerPrefs.SetInt("score", Globals.saves[2].sumofScores);
-            PlayerPrefs.SetInt("activeProfile", 2);
-            Globals.currUser = Globals.saves[2].charname;
-            Debug.Log("Current global user = " + Globals.currUser);
+            if (string.Equals(Globals.saves[2].charname, "None"))
+            {
+                leaderboardCanvas.SetActive(false);
+                InputCanvas.SetActive(true);
+                Globals.currSlot = 2;
+            }
+            else
+            {
+                PlayerPrefs.SetString("userName", Globals.saves[2].charname);
+                PlayerPrefs.SetInt("score", Globals.saves[2].sumofScores);
+                PlayerPrefs.SetInt("activeProfile", 2);
+                Globals.currUser = Globals.saves[2].charname;
+                Debug.Log("Current global user = " + Globals.currUser);
+            }
+
             GoBackToMainMenu();
         }
 
         if (buttonType == "P2")
         {
-            PlayerPrefs.SetString("userName", Globals.saves[1].charname);
-            PlayerPrefs.SetInt("score", Globals.saves[1].sumofScores);
-            PlayerPrefs.SetInt("activeProfile", 1);
-            Globals.currUser = Globals.saves[1].charname;
-            Debug.Log("Current global user = " + Globals.currUser);
-            GoBackToMainMenu();
+            if (string.Equals(Globals.saves[1].charname, "None"))
+            {
+                leaderboardCanvas.SetActive(false);
+                InputCanvas.SetActive(true);
+                Globals.currSlot = 1;
+            }
+            else
+            {
+                PlayerPrefs.SetString("userName", Globals.saves[1].charname);
+                PlayerPrefs.SetInt("score", Globals.saves[1].sumofScores);
+                PlayerPrefs.SetInt("activeProfile", 1);
+                Globals.currUser = Globals.saves[1].charname;
+                Debug.Log("Current global user = " + Globals.currUser);
+                GoBackToMainMenu();
+            }
+
         }
         if (buttonType == "P3")
         {
-            PlayerPrefs.SetString("userName", Globals.saves[0].charname);
-            PlayerPrefs.SetInt("score", Globals.saves[0].sumofScores);
-            PlayerPrefs.SetInt("activeProfile", 0);
-            Globals.currUser = Globals.saves[0].charname;
-            Debug.Log("Current global user = " + Globals.currUser);
-            GoBackToMainMenu();
+            if (string.Equals(Globals.saves[0].charname, "None"))
+            {
+                leaderboardCanvas.SetActive(false);
+                InputCanvas.SetActive(true);
+                Globals.currSlot = 0;
+            }
+            else
+            {
+                PlayerPrefs.SetString("userName", Globals.saves[0].charname);
+                PlayerPrefs.SetInt("score", Globals.saves[0].sumofScores);
+                PlayerPrefs.SetInt("activeProfile", 0);
+                Globals.currUser = Globals.saves[0].charname;
+                Debug.Log("Current global user = " + Globals.currUser);
+                GoBackToMainMenu();
+            }
+
         }
         if (buttonType == "D1")
         {
@@ -356,6 +389,7 @@ public class MenuController : MonoBehaviour
             Globals.saves[2] = Globals.saves[1];
             Globals.saves[1] = Globals.saves[0];
             Globals.currUser = "None";
+            Globals.saves[0] = new savedata();
             Globals.saves[0].charname = "None";
             Globals.saves[0].sumofScores = -1;
             for(int i = 0; i < 10; i++)
@@ -380,6 +414,7 @@ public class MenuController : MonoBehaviour
         {
             defer_update = 1;
             Globals.saves[1] = Globals.saves[0];
+            Globals.saves[0] = new savedata();
             Globals.currUser = "None";
                 Globals.saves[0].charname = "None";
                 Globals.saves[0].sumofScores = -1;
@@ -405,6 +440,8 @@ public class MenuController : MonoBehaviour
         {
             defer_update = 1;
             Globals.currUser = "None";
+            Globals.saves[0] = new savedata();
+
             Globals.saves[0].charname = "None";
             Globals.saves[0].sumofScores = -1;
             for (int i = 0; i < 10; i++)
@@ -434,6 +471,10 @@ public class MenuController : MonoBehaviour
         {
             Globals.currLevel = 2;
             SceneManager.LoadScene(level2);
+        }
+        if (buttonType == "InputText")
+        {
+            StoreName();
         }
     }
     #endregion
@@ -616,7 +657,17 @@ public class MenuController : MonoBehaviour
         gameplayMenu.SetActive(false);
         menuNumber = 1;
     }
+    public void StoreName()
+    {
+        string fromText = inputField.text;
 
+        Globals.saves[Globals.currSlot].charname = fromText;
+        
+        //Debug.Log("Inputted name = " + theName);
+        Globals.currUser = fromText;
+        InputCanvas.SetActive(false);
+        GoBackToMainMenu();
+    }
     public void GoBackToGameplayMenu()
     {
         controlsMenu.SetActive(false);
