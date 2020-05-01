@@ -169,8 +169,8 @@ MonoBehaviour:
   magicalArmorPercent: 0
   moveTime: 0.1
   healthBar: {fileID: 2666340535640775483}
-  attackSound: {fileID: 8300000, guid: 1bee7ae3861a34e7bae1a14ebbd65cc2, type: 3}
-  deathSound: {fileID: 8300000, guid: df4c1fa5979dd49b29e69e6ac47e4184, type: 3}
+  attackSound: {fileID: 8300000, guid: eeeb02a49d7bd5c419132a6f86019c17, type: 3}
+  deathSound: {fileID: 8300000, guid: 36ffdee93a8155a4085012543afe3672, type: 3}
   specialAbility: None
   maxHealth: 0
   LogText: {fileID: 0}

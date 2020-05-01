@@ -320,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMovable: 0
   multiplePurchasable: 0
-  price: 200
+  price: 150
   purchasableEnemy: 0
 --- !u!114 &7993242225318731690
 MonoBehaviour:
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  attack: 30
+  attack: 25
   attackSpeed: 2
   range: 1
   magical: 1
@@ -343,8 +343,8 @@ MonoBehaviour:
   magicalArmorPercent: 0.25
   moveTime: 0.1
   healthBar: {fileID: 6187229288760357301}
-  attackSound: {fileID: 8300000, guid: 0cdc6ff3c1eab4fbab35b48ebd55c9fb, type: 3}
-  deathSound: {fileID: 8300000, guid: 87dcbea9859d54d70b428f0d83f0d4d6, type: 3}
+  attackSound: {fileID: 8300000, guid: 5776adf848812e34494e6ea3092c1599, type: 3}
+  deathSound: {fileID: 8300000, guid: 072eec62fa2bccc41ad62c521a7d7091, type: 3}
   specialAbility: None
   maxHealth: 0
   LogText: {fileID: 0}
