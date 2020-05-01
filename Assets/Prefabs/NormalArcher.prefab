@@ -167,6 +167,8 @@ MonoBehaviour:
   magicalArmorPercent: 0
   moveTime: 0.1
   healthBar: {fileID: 2666340535640775483}
+  attackSound: {fileID: 0}
+  deathSound: {fileID: 0}
   specialAbility: None
   maxHealth: 0
   LogText: {fileID: 0}
@@ -177,6 +179,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   targetScript: {fileID: 0}
   slowed: 0
+  haste: 0
 --- !u!1 &3636740033946268366
 GameObject:
   m_ObjectHideFlags: 0
